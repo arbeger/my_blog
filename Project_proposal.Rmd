@@ -1,0 +1,67 @@
+---
+title: "DASC 1104 Project Proposal"
+author: "Anthony Beger"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## 1 My blog link
+
+My blog is available at [https://arbeger-blog.netlify.app/](https://arbeger-blog.netlify.app/)
+
+```{r, message=FALSE}
+library(here)
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+
+attendance <- readr::read_csv(here::here("data", "tidytuesday", "attendence.csv"))
+standings <- readr::read_csv(here::here("data", "tidytuesday", "standings.csv"))
+games <- readr::read_csv(here::here("data", "tidytuesday", "games.csv"))
+
+glimpse(attendance)
+glimpse(standings)
+glimpse(games)
+```
+
+## 2 NFL attendence
+
+For this project, I will be examining the NFL attendance data from the `attendance.csv` file on the Tidy Tuesday Website. The data consists of 10,846 observations and 8 variables. The dataset shows the the total attendance and weekly attendance for every NFL team dating back to the 2000 NFL season.
+
+Another dataset that I will be using to explore NFL attendence is the `standings.csv` file from the Tidy Tuesday website. The data consists of 638 observations and 15 variables. Some of the variables in this dataset show how well each NFL team preformed in each season since 2000, these variables include the number of `wins` and `loss` as well as whether each team made the `playoffs` or won the Superbowl in the `sb_winner` variable. This dataset also represents how good each team preformed on offense and defense by having `points_for` and `points_against` variables as well as `offense_ranking` and `defense_ranking`. This data will help me see if there is a correltaion between team success and attendance.
+
+Lastly, I will be using the `games.csv` file from the Tidy Tuesday website. The data consists of 5,324 observations and 19 variables. The data shows the outcomes of every NFL game dating back to the 2000 NFL season. The `home_team` , `away_team`, and `winner` variables will be useful to see if there is any sort of home field advantage in the NFL. The `day`, `date`, and `time` variables will be useful to see if NFL games played on different times and dates have different amounts of attendance.
+
+Question 1 : Do playoff teams have more attendance at their home games than non-playoff teams? If so, does the superbowl winner usually lead the league in attendance? To test this, I will join the attendance dataset and the standings dataset to be able to compare the attendance data and whether or not each team made the playoffs. Then, I will creat some plots with the data.
+
+Question 2 : When is the optimal time and day for a NFL game to recieve the highest attendance? To find this, I will join the attendance dataset and the games dataset to compare attendances over different times and dates. I will get the average attendence for each time and day and most likely create a bar graph so that the attendances can be easily compared.
+
+Question 3 : Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team. I will then make some plots to see if there are any correlations.
+
+Question 4 : To be determined.
+
+## 3 European Energy data analysis
+
+```{r, message=FALSE}
+energy_types <- readr::read_csv(here::here("data", "tidytuesday", "energy_types.csv"))
+country_totals <- readr::read_csv(here::here("data", "tidytuesday", "country_totals.csv"))
+
+glimpse(energy_types)
+glimpse(country_totals)
+```
+
+Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the `energy_types.csv` file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.
+
+The second dataset I will use to explore European Energy production is the `country_totals.csv` file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from 
+2016-2018 as well as the total energy production of each country.
+
+Question 1 : Which European country has the largest percentage of their total energy production made up of renewables? To find this, I will join the energy types and country totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable. Then I will compare the amount of energy produced by renewables in each country in 2018 with their total energy production to find the country with the highest percentage renewable.
+
+Question 2 : Which European country has made the biggest shift towards renewable energy since 2016? To find this, I will join the energy types and country totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable. Then I will compare the percentage of each countries total energy production was renewable in 2016 vs. 2018 and see which country made the biggest jump.
+
+Question 3 : Is there a correlation between the European countries with the biggest energy outputs and using more convential thermal energy? To test this, I will join the energy types and country totals datasets. Then I will compare the countries with large total energy outputs with ones that have smaller outputs and put the results on a plot so I can easily see if there is any correlation.
+
+Question 4 : To be determined.
+

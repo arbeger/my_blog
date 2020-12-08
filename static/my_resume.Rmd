@@ -1,0 +1,119 @@
+---
+output: 
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: false
+    dev: cairo_pdf
+    template: svm-latex-resume.tex
+
+title: "Résumé"
+author: "Anthony Beger"
+date: "12/8/2020"
+
+fontawesome: TRUE
+#geometry: margin=1in
+geometry: "top=.5in, left =.5in, right=.5in, bottom=.75in"
+
+# How can we get a hold of you?
+email: arbeger@uark.edu
+phone: 870-267-0268
+location: "Fayetville, AR"
+github: arbeger
+# web: wwe.com/superstars/rick-martel
+twitter: "@anthony_beger"
+linkedin: "Anthony Beger"
+mainfont: cochineal
+sansfont: Fira Sans
+# monofont: Fira Code # I want to use this, but seems to choke on @
+urlcolor: blue
+fontsize: 11pt
+
+includephoto: TRUE
+myphoto: me.jpg
+# shift: "7in,-.25in" # this is default
+photobigness: 1.75cm
+# photozoom: ".2\textwidth" # this is default
+---
+
+
+<!-- Read more about Pandoc's [fenced_divs](https://pandoc.org/MANUAL.html#extension-fenced_divs) syntax -->
+
+:::::: {.columns}
+::: {.column width="60%" data-latex="{0.60\textwidth}"}
+
+# Professional Experience
+
+## Lee & Company, LLC
+
+- Worked for 3 summers from 2017-2020 as an office clerk for a local Accounting Firm.
+- Maintained files and records so that they remained updated and easily accessible, sorted and distributed incoming mail and prepared outgoing mail (envelopes, packages, etc.), and worked on basic bookkeeping tasks.
+- Utilized office appliances such as photocopier, printers etc. and computers for data entry and filing.
+- Stopped working there after I went to college.
+
+## Recreational Soccer Referee 
+
+- Worked for 5 years as a Soccer Referee, working primarily on weekends during the fall and spring recreational soccer seasons at my local club, but I also would occasionally travel to work at tournaments across Arkansas.
+- Watched over soccer matches to enforce fair play, keep time, monitor player safety, monitor field and weather conditions, and provide a game report to match officials.
+- Worked primarily as a part of a 3 person team when refereeing games and had to collaborate on calls, time keeping, and  game reports.
+- Have attended multiple training sessions to achieve my Level 8 Arkansas State Soccer Referee certification and I have to pass a recertification test each year.
+- Stopped working after I went to college.
+
+
+
+:::
+::: {.column width="2%" data-latex="{0.02\textwidth}"}
+\ 
+<!-- an empty div with an empty character to serve as a column sep -->
+:::
+:::::: {.column width="38%" data-latex="{0.38\textwidth}"}
+
+# Education
+
+## Undergraduate Program
+
+Working on my B.S in Data Science from the University of Arkansas. Set to graduate in the Spring of 2024.
+
+## High School
+
+Graduated with honors from White Hall High School class of 2020.
+
+# Technical Skills (or Accomplishments)
+
+- Microsoft Word Mastery Certification
+- Microsoft Excel Mastery Certification
+- Proficient in JavaScript, Python, and R programming languages
+
+
+## Awards and Distinctions
+
+- Graduated 3rd in my High School class
+- Placed 9th in Accounting II at the 2019 FBLA (Future Business Leaders of America) National Conference
+- Placed 1st in Accounting II at the 2019 Arkansas State FBLA Conference
+- Placed 1st in Business Calculations at the 2020 Arkansas State FBLA Conference
+
+:::
+::::::
+
+<!-- If you want another page, this is how you can do it... -->
+
+<!-- \newpage
+
+:::::: {.columns}
+::: {.column width="60%" data-latex="{0.60\textwidth}"}
+
+
+
+
+:::
+::: {.column width="2%" data-latex="{0.02\textwidth}"}
+\
+
+
+:::
+:::::: {.column width="38%" data-latex="{0.38\textwidth}"}
+
+
+:::
+::::::
+
+-->

@@ -1,0 +1,245 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={DASC 1104 Project Proposal},
+  pdfauthor={Anthony Beger},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{DASC 1104 Project Proposal}
+\author{Anthony Beger}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{my-blog-link}{%
+\subsection{1 My blog link}\label{my-blog-link}}
+
+My blog is available at \url{https://arbeger-blog.netlify.app/}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(here)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(readxl)}
+
+\NormalTok{attendance <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"tidytuesday"}\NormalTok{, }\StringTok{"attendence.csv"}\NormalTok{))}
+\NormalTok{standings <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"tidytuesday"}\NormalTok{, }\StringTok{"standings.csv"}\NormalTok{))}
+\NormalTok{games <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"tidytuesday"}\NormalTok{, }\StringTok{"games.csv"}\NormalTok{))}
+
+\KeywordTok{glimpse}\NormalTok{(attendance)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 10,846
+## Variables: 8
+## $ team              [3m[90m<chr>[39m[23m "Arizona", "Arizona", "Arizona", "Arizona", "Arizona", "Arizona", "Arizona", "Arizona", "Arizona", "Ariz...
+## $ team_name         [3m[90m<chr>[39m[23m "Cardinals", "Cardinals", "Cardinals", "Cardinals", "Cardinals", "Cardinals", "Cardinals", "Cardinals", ...
+## $ year              [3m[90m<dbl>[39m[23m 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 20...
+## $ total             [3m[90m<dbl>[39m[23m 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, 893926, ...
+## $ home              [3m[90m<dbl>[39m[23m 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, 387475, ...
+## $ away              [3m[90m<dbl>[39m[23m 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, 506451, ...
+## $ week              [3m[90m<dbl>[39m[23m 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14...
+## $ weekly_attendance [3m[90m<dbl>[39m[23m 77434, 66009, NA, 71801, 66985, 44296, 38293, 62981, 35286, 52244, 64223, 65356, 42094, 50289, 53472, 37...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(standings)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 638
+## Variables: 15
+## $ team                 [3m[90m<chr>[39m[23m "Miami", "Indianapolis", "New York", "Buffalo", "New England", "Tennessee", "Baltimore", "Pittsburgh"...
+## $ team_name            [3m[90m<chr>[39m[23m "Dolphins", "Colts", "Jets", "Bills", "Patriots", "Titans", "Ravens", "Steelers", "Jaguars", "Bengals...
+## $ year                 [3m[90m<dbl>[39m[23m 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000,...
+## $ wins                 [3m[90m<dbl>[39m[23m 11, 10, 9, 8, 5, 13, 12, 9, 7, 4, 3, 12, 11, 7, 6, 1, 12, 11, 8, 5, 3, 11, 10, 9, 9, 5, 10, 10, 7, 6,...
+## $ loss                 [3m[90m<dbl>[39m[23m 5, 6, 7, 8, 11, 3, 4, 7, 9, 12, 13, 4, 5, 9, 10, 15, 4, 5, 8, 11, 13, 5, 6, 7, 7, 11, 6, 6, 9, 10, 12...
+## $ points_for           [3m[90m<dbl>[39m[23m 323, 429, 321, 315, 276, 346, 333, 321, 367, 185, 161, 479, 485, 355, 320, 269, 328, 351, 281, 294, 2...
+## $ points_against       [3m[90m<dbl>[39m[23m 226, 326, 321, 350, 338, 191, 165, 255, 327, 359, 419, 299, 369, 354, 405, 440, 246, 245, 269, 361, 4...
+## $ points_differential  [3m[90m<dbl>[39m[23m 97, 103, 0, -35, -62, 155, 168, 66, 40, -174, -258, 180, 116, 1, -85, -171, 82, 106, 12, -67, -233, 2...
+## $ margin_of_victory    [3m[90m<dbl>[39m[23m 6.1, 6.4, 0.0, -2.2, -3.9, 9.7, 10.5, 4.1, 2.5, -10.9, -16.1, 11.3, 7.3, 0.1, -5.3, -10.7, 5.1, 6.6, ...
+## $ strength_of_schedule [3m[90m<dbl>[39m[23m 1.0, 1.5, 3.5, 2.2, 1.4, -1.3, -2.5, -0.2, -1.4, 0.4, 1.5, -1.5, -2.2, 0.6, 1.6, 2.6, -2.7, -3.6, 0.2...
+## $ simple_rating        [3m[90m<dbl>[39m[23m 7.1, 7.9, 3.5, 0.0, -2.5, 8.3, 8.0, 3.9, 1.1, -10.5, -14.6, 9.7, 5.0, 0.6, -3.7, -8.1, 2.4, 3.1, 1.0,...
+## $ offensive_ranking    [3m[90m<dbl>[39m[23m 0.0, 7.1, 1.4, 0.5, -2.7, 1.5, 0.0, 0.6, 3.2, -8.1, -9.1, 8.0, 7.8, 0.1, -1.4, -3.7, -1.3, 1.0, -2.9,...
+## $ defensive_ranking    [3m[90m<dbl>[39m[23m 7.1, 0.8, 2.2, -0.5, 0.2, 6.8, 8.0, 3.3, -2.1, -2.4, -5.5, 1.8, -2.7, 0.6, -2.3, -4.4, 3.8, 2.1, 3.8,...
+## $ playoffs             [3m[90m<chr>[39m[23m "Playoffs", "Playoffs", "No Playoffs", "No Playoffs", "No Playoffs", "Playoffs", "Playoffs", "No Play...
+## $ sb_winner            [3m[90m<chr>[39m[23m "No Superbowl", "No Superbowl", "No Superbowl", "No Superbowl", "No Superbowl", "No Superbowl", "Won ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(games)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 5,324
+## Variables: 19
+## $ year           [3m[90m<dbl>[39m[23m 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000,...
+## $ week           [3m[90m<chr>[39m[23m "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2...
+## $ home_team      [3m[90m<chr>[39m[23m "Minnesota Vikings", "Kansas City Chiefs", "Washington Redskins", "Atlanta Falcons", "Pittsburgh Steelers",...
+## $ away_team      [3m[90m<chr>[39m[23m "Chicago Bears", "Indianapolis Colts", "Carolina Panthers", "San Francisco 49ers", "Baltimore Ravens", "Jac...
+## $ winner         [3m[90m<chr>[39m[23m "Minnesota Vikings", "Indianapolis Colts", "Washington Redskins", "Atlanta Falcons", "Baltimore Ravens", "J...
+## $ tie            [3m[90m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ day            [3m[90m<chr>[39m[23m "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Sun", "Mon", "S...
+## $ date           [3m[90m<chr>[39m[23m "September 3", "September 3", "September 3", "September 3", "September 3", "September 3", "September 3", "S...
+## $ time           [3m[90m<time>[39m[23m 13:00:00, 13:00:00, 13:01:00, 13:02:00, 13:02:00, 13:02:00, 13:02:00, 13:03:00, 13:04:00, 16:05:00, 16:15:...
+## $ pts_win        [3m[90m<dbl>[39m[23m 30, 27, 20, 36, 16, 27, 21, 14, 21, 41, 9, 23, 20, 16, 41, 13, 24, 38, 41, 27, 39, 33, 17, 28, 38, 37, 15, ...
+## $ pts_loss       [3m[90m<dbl>[39m[23m 27, 14, 17, 28, 0, 7, 16, 10, 16, 14, 6, 0, 16, 13, 36, 7, 7, 31, 0, 18, 36, 18, 14, 27, 22, 34, 10, 14, 31...
+## $ yds_win        [3m[90m<dbl>[39m[23m 374, 386, 396, 359, 336, 398, 296, 187, 395, 425, 233, 308, 379, 266, 513, 468, 354, 359, 327, 309, 331, 38...
+## $ turnovers_win  [3m[90m<dbl>[39m[23m 1, 2, 0, 1, 0, 0, 1, 2, 2, 3, 0, 1, 1, 0, 3, 4, 1, 0, 0, 1, 2, 0, 3, 3, 1, 1, 2, 0, 1, 1, 1, 1, 4, 2, 2, 1,...
+## $ yds_loss       [3m[90m<dbl>[39m[23m 425, 280, 236, 339, 223, 249, 278, 252, 355, 167, 255, 143, 211, 172, 424, 209, 318, 462, 165, 274, 421, 23...
+## $ turnovers_loss [3m[90m<dbl>[39m[23m 1, 1, 1, 1, 1, 1, 1, 3, 4, 2, 4, 6, 2, 1, 0, 1, 3, 3, 4, 3, 4, 0, 0, 2, 2, 3, 4, 3, 2, 0, 4, 1, 1, 4, 2, 4,...
+## $ home_team_name [3m[90m<chr>[39m[23m "Vikings", "Chiefs", "Redskins", "Falcons", "Steelers", "Browns", "Patriots", "Saints", "Giants", "Cowboys"...
+## $ home_team_city [3m[90m<chr>[39m[23m "Minnesota", "Kansas City", "Washington", "Atlanta", "Pittsburgh", "Cleveland", "New England", "New Orleans...
+## $ away_team_name [3m[90m<chr>[39m[23m "Bears", "Colts", "Panthers", "49ers", "Ravens", "Jaguars", "Buccaneers", "Lions", "Cardinals", "Eagles", "...
+## $ away_team_city [3m[90m<chr>[39m[23m "Chicago", "Indianapolis", "Carolina", "San Francisco", "Baltimore", "Jacksonville", "Tampa Bay", "Detroit"...
+\end{verbatim}
+
+\hypertarget{nfl-attendence}{%
+\subsection{2 NFL attendence}\label{nfl-attendence}}
+
+\hypertarget{european-energy-data-analysis}{%
+\subsection{3 European Energy data
+analysis}\label{european-energy-data-analysis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{energy_types <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"tidytuesday"}\NormalTok{, }\StringTok{"energy_types.csv"}\NormalTok{))}
+\NormalTok{country_totals <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"tidytuesday"}\NormalTok{, }\StringTok{"country_totals.csv"}\NormalTok{))}
+
+\KeywordTok{glimpse}\NormalTok{(energy_types)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 296
+## Variables: 7
+## $ country      [3m[90m<chr>[39m[23m "BE", "BE", "BE", "BE", "BE", "BE", "BE", "BE", "BG", "BG", "BG", "BG", "BG", "BG", "BG", "BG", "CZ", "CZ", "...
+## $ country_name [3m[90m<chr>[39m[23m "Belgium", "Belgium", "Belgium", "Belgium", "Belgium", "Belgium", "Belgium", "Belgium", "Bulgaria", "Bulgaria...
+## $ type         [3m[90m<chr>[39m[23m "Conventional thermal", "Nuclear", "Hydro", "Pumped hydro power", "Wind", "Solar", "Geothermal", "Other", "Co...
+## $ level        [3m[90m<chr>[39m[23m "Level 1", "Level 1", "Level 1", "Level 2", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1",...
+## $ `2016`       [3m[90m<dbl>[39m[23m 30728.000, 41430.000, 1476.000, 1110.000, 5340.000, 3070.000, 0.000, 476.000, 18909.000, 14932.000, 4535.000,...
+## $ `2017`       [3m[90m<dbl>[39m[23m 31316.000, 40128.500, 1360.900, 1093.200, 6387.900, 3264.300, 0.000, 490.900, 20234.209, 14718.368, 3458.015,...
+## $ `2018`       [3m[90m<dbl>[39m[23m 30092.635, 26995.628, 1239.248, 983.190, 7177.346, 3488.979, 0.000, 218.509, 19334.000, 15290.000, 4690.000, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(country_totals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 185
+## Variables: 7
+## $ country      [3m[90m<chr>[39m[23m "BE", "BE", "BE", "BE", "BE", "BG", "BG", "BG", "BG", "BG", "CZ", "CZ", "CZ", "CZ", "CZ", "DK", "DK", "DK", "...
+## $ country_name [3m[90m<chr>[39m[23m "Belgium", "Belgium", "Belgium", "Belgium", "Belgium", "Bulgaria", "Bulgaria", "Bulgaria", "Bulgaria", "Bulga...
+## $ type         [3m[90m<chr>[39m[23m "Total net production", "Imports", "Exports", "Energy absorbed by pumping", "Energy supplied", "Total net pro...
+## $ level        [3m[90m<chr>[39m[23m "Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total", "...
+## $ `2016`       [3m[90m<dbl>[39m[23m 82520.000, 14648.000, 8465.000, 1475.000, 87228.000, 41221.000, 4568.000, 10940.000, 918.000, 33931.000, 7639...
+## $ `2017`       [3m[90m<dbl>[39m[23m 82948.500, 14189.400, 8167.800, 1485.400, 87484.700, 41351.303, 3705.423, 9185.794, 949.527, 34921.405, 79885...
+## $ `2018`       [3m[90m<dbl>[39m[23m 69212.347, 21635.908, 4308.347, 1347.901, 85192.007, 41705.000, 2223.000, 10030.000, 425.000, 33473.000, 8196...
+\end{verbatim}
+
+\end{document}

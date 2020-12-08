@@ -6,8 +6,8 @@
 <meta name="generator" content="Hugo 0.79.0" />
 
 
-<title>A first post - DASC blog</title>
-<meta property="og:title" content="A first post - DASC blog">
+<title>NFL Attendence - DASC blog</title>
+<meta property="og:title" content="NFL Attendence - DASC blog">
 
 
   <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -22,6 +22,11 @@
 
 
 
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
@@ -33,7 +38,7 @@
       <header class="header">
         <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png"
+    <img src="/images/~/public/images/me.jpg"
          width="50"
          height="50"
          alt="Logo">
@@ -44,6 +49,8 @@
     <li><a href="/about/">About</a></li>
     
     <li><a href="https://github.com/arbeger">GitHub</a></li>
+    
+    <li><a href="/my_resume.pdf">Resume</a></li>
     
     <li><a href="https://twitter.com/anthony_beger">Twitter</a></li>
     
@@ -57,17 +64,53 @@
 
   <article class="article">
     
-    <span class="article-duration">0 min read</span>
+    <span class="article-duration">1 min read</span>
     
 
-    <h1 class="article-title">A first post</h1>
+    <h1 class="article-title">NFL Attendence</h1>
 
     
     <span class="article-date">2020-12-03</span>
     
 
     <div class="article-content">
-      
+      <pre><code class="language-{r" data-lang="{r">knitr::opts_chunk$set(echo = TRUE)
+
+library(here)
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+library(ggthemes)
+
+attendance &lt;- readr::read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;attendence.csv&quot;))
+standings &lt;- readr::read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;standings.csv&quot;))
+games &lt;- readr::read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;games.csv&quot;))
+
+</code></pre><pre><code class="language-{r}" data-lang="{r}">dat &lt;- attendance %&gt;%
+  left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))
+
+ggplot(dat, aes(x = wins, y = home)) +
+  geom_point(aes(color = playoffs)) +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Wins&quot;, y = &quot;Total Attendence at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendence vs Wins and Playoff Births&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))
+
+ggplot(dat, aes(x = playoffs, y = home)) +
+  geom_boxplot() +
+  labs(x = &quot;Playoff Birth&quot;, y = &quot;Total Attendence at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendence vs Playoff Births&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))
+
+ggplot(dat, aes(x = sb_winner, y = home)) +
+  geom_boxplot() +
+  labs(x = &quot;Superbowl Winner&quot;, y = &quot;Total Attendence at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendence vs Superbowl Winners&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))
+</code></pre>
     </div>
   </article>
 
@@ -90,7 +133,22 @@
     </div>
     
 
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
     
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
     
   </body>

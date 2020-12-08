@@ -1,0 +1,21 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(here)
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+library(ggthemes)
+
+energy_types <- readr::read_csv(here::here("data", "tidytuesday", "energy_types.csv"))
+country_totals <- readr::read_csv(here::here("data", "tidytuesday", "country_totals.csv"))
+```
+
+```{r}
+
+```
