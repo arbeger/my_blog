@@ -1,5 +1,5 @@
 ---
-title: NFL Attendence
+title: NFL Data Analysis
 author: ~
 date: '2020-12-03'
 slug: a-first-post
@@ -11,8 +11,33 @@ tags: []
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="nfl-attendance" class="section level1">
+<h1>NFL Attendance</h1>
+<p>For this project, I will be examining the NFL attendance data from the <code>attendance.csv</code> file on the Tidy
+Tuesday Website. The data consists of 10,846 observations and 8 variables. The dataset shows the the total
+attendance and weekly attendance for every NFL team dating back to the 2000 NFL season.</p>
+<p>Another dataset that I will be using to explore NFL attendence is the <code>standings.csv</code> file from the Tidy
+Tuesday website. The data consists of 638 observations and 15 variables. Some of the variables in this
+dataset show how well each NFL team preformed in each season since 2000, these variables include the
+number of <code>wins</code> and <code>losses</code> as well as whether each team made the <code>playoffs</code> or won the Superbowl in the
+<code>sb_winner</code> variable. This dataset also represents how good each team preformed on offense and defense
+by having <code>points_for</code> and <code>points_against</code> variables as well as <code>offense_ranking</code> and <code>defense_ranking</code>.
+This data will help me see if there is a correlation between team success and attendance.</p>
+<p>Lastly, I will be using the <code>games.csv</code> file from the Tidy Tuesday website. The data consists of 5,324
+observations and 19 variables. The data shows the outcomes of every NFL game dating back to the 2000
+NFL season. The <code>home_team</code> , <code>away_team</code>, and <code>winner</code> variables will be useful to see if there is any sort
+of home field advantage in the NFL. The <code>day</code>, <code>date</code>, and <code>time</code> variables will be useful to see if NFL games
+played on different times and dates have different amounts of attendance.</p>
+</div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<p>Do playoff teams have more attendance at their home games than non-playoff teams? If so,
+does the superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
+dataset and the standings dataset to compare the attendance data and whether or not each team
+made the playoffs.</p>
 <pre class="r"><code>dat &lt;- attendance %&gt;%
   left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))</code></pre>
+<p>Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success.</p>
 <pre class="r"><code>ggplot(dat, aes(x = wins, y = home)) +
   geom_point(aes(color = playoffs)) +
   geom_smooth(method = &quot;lm&quot;) +
@@ -21,20 +46,26 @@ tags: []
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(dat, aes(x = playoffs, y = home)) +
+<pre class="r"><code>p1 &lt;- ggplot(dat, aes(x = playoffs, y = home)) +
   geom_boxplot() +
   labs(x = &quot;Playoff Birth&quot;, y = &quot;Total Attendence at Home Games&quot;) +
-  ggtitle(&quot;Home Game Attendence vs Playoff Births&quot;) +
+  ggtitle(&quot;Home Game Attendence vs Playoff Births &amp; Superbowl Winners&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
-<pre class="r"><code>ggplot(dat, aes(x = sb_winner, y = home)) +
+  theme(plot.title = element_text(hjust = 0.35))
+
+p2 &lt;- ggplot(dat, aes(x = sb_winner, y = home)) +
   geom_boxplot() +
   labs(x = &quot;Superbowl Winner&quot;, y = &quot;Total Attendence at Home Games&quot;) +
-  ggtitle(&quot;Home Game Attendence vs Superbowl Winners&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+  theme(plot.title = element_text(hjust = 0.35))
+
+p1 + p2</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="672" />
+There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. Although there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.</p>
+</div>
+<div id="question-2" class="section level1">
+<h1>Question 2</h1>
+<p>When is the optimal time and day for a NFL game to recieve the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.</p>
 <pre class="r"><code>games &lt;- games %&gt;%
   mutate(week = as.numeric(week))</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
@@ -60,37 +91,47 @@ tags: []
 ##  9 Mon   20:31          69957 
 ## 10 Mon   20:32          69596 
 ## # … with 126 more rows</code></pre>
+<p>So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.</p>
+</div>
+<div id="question-3" class="section level1">
+<h1>Question 3</h1>
+<p>Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.</p>
 <pre class="r"><code>dat &lt;- attendance %&gt;%
   left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))
   
-ggplot(dat, aes(x = offensive_ranking, y = home)) +
+f1 &lt;- ggplot(dat, aes(x = offensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Offensive Ranking&quot;, y = &quot;Total Attendance at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendance vs Offensive Ranking&quot;) +
-  theme_economist()</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(dat, aes(x = points_for, y = home)) +
+  theme_economist()
+
+f2 &lt;- ggplot(dat, aes(x = points_for, y = home)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Points Scored in a Season&quot;, y = &quot;Total Attendance at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendance vs Points Scored&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
-<pre class="r"><code>ggplot(dat, aes(x = defensive_ranking, y = home)) +
+  theme(plot.title = element_text(hjust = 0.35))
+
+f1 / f2</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>f3 &lt;- ggplot(dat, aes(x = defensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Defensive Ranking&quot;, y = &quot;Total Attendance at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendance vs Defensive Ranking&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
-<pre class="r"><code>ggplot(dat, aes(x = points_against, y = home)) +
+  theme(plot.title = element_text(hjust = 0.35))
+
+f4 &lt;- ggplot(dat, aes(x = points_against, y = home)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Points Given Up in a Season&quot;, y = &quot;Total Attendance at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendance vs Points Given Up&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-4.png" width="672" /></p>
+  theme(plot.title = element_text(hjust = 0.35))
+
+f3 / f4</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+</div>

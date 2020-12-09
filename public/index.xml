@@ -17,12 +17,13 @@
     </item>
     
     <item>
-      <title>NFL Attendence</title>
+      <title>NFL Data Analysis</title>
       <link>/2020/12/03/a-first-post/</link>
       <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/03/a-first-post/</guid>
-      <description>dat &amp;lt;- attendance %&amp;gt;% left_join(standings, by = c(&amp;quot;team&amp;quot;, &amp;quot;team_name&amp;quot;, &amp;quot;year&amp;quot;)) ggplot(dat, aes(x = wins, y = home)) + geom_point(aes(color = playoffs)) + geom_smooth(method = &amp;quot;lm&amp;quot;) + labs(x = &amp;quot;Wins&amp;quot;, y = &amp;quot;Total Attendence at Home Games&amp;quot;) + ggtitle(&amp;quot;Home Game Attendence vs Wins and Playoff Births&amp;quot;) + theme_economist() + theme(plot.title = element_text(hjust = 0.35)) ggplot(dat, aes(x = playoffs, y = home)) + geom_boxplot() + labs(x = &amp;quot;Playoff Birth&amp;quot;, y = &amp;quot;Total Attendence at Home Games&amp;quot;) + ggtitle(&amp;quot;Home Game Attendence vs Playoff Births&amp;quot;) + theme_economist() + theme(plot.</description>
+      <description>NFL Attendance For this project, I will be examining the NFL attendance data from the attendance.csv file on the Tidy Tuesday Website. The data consists of 10,846 observations and 8 variables. The dataset shows the the total attendance and weekly attendance for every NFL team dating back to the 2000 NFL season.
+Another dataset that I will be using to explore NFL attendence is the standings.csv file from the Tidy Tuesday website.</description>
     </item>
     
     <item>

@@ -1,5 +1,5 @@
 ---
-title: NFL Attendence
+title: NFL Data Analysis
 author: ~
 date: '2020-12-03'
 slug: a-first-post
@@ -14,17 +14,47 @@ library(ggplot2)
 library(tidyverse)
 library(readxl)
 library(ggthemes)
+library(patchwork)
 
 attendance <- readr::read_csv(here::here("data", "tidytuesday", "attendence.csv"))
 standings <- readr::read_csv(here::here("data", "tidytuesday", "standings.csv"))
 games <- readr::read_csv(here::here("data", "tidytuesday", "games.csv"))
 
 ```
+# NFL Attendance
+
+For this project, I will be examining the NFL attendance data from the `attendance.csv` file on the Tidy
+Tuesday Website. The data consists of 10,846 observations and 8 variables. The dataset shows the the total
+attendance and weekly attendance for every NFL team dating back to the 2000 NFL season.
+
+Another dataset that I will be using to explore NFL attendence is the `standings.csv` file from the Tidy
+Tuesday website. The data consists of 638 observations and 15 variables. Some of the variables in this
+dataset show how well each NFL team preformed in each season since 2000, these variables include the
+number of `wins` and `losses` as well as whether each team made the `playoffs` or won the Superbowl in the
+`sb_winner` variable. This dataset also represents how good each team preformed on offense and defense
+by having `points_for` and `points_against` variables as well as `offense_ranking` and `defense_ranking`.
+This data will help me see if there is a correlation between team success and attendance.
+
+Lastly, I will be using the `games.csv` file from the Tidy Tuesday website. The data consists of 5,324
+observations and 19 variables. The data shows the outcomes of every NFL game dating back to the 2000
+NFL season. The `home_team` , `away_team`, and `winner` variables will be useful to see if there is any sort
+of home field advantage in the NFL. The `day`, `date`, and `time` variables will be useful to see if NFL games
+played on different times and dates have different amounts of attendance.
+
+# Question 1
+
+Do playoff teams have more attendance at their home games than non-playoff teams? If so,
+does the superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
+dataset and the standings dataset to compare the attendance data and whether or not each team
+made the playoffs.
 
 ```{r}
 dat <- attendance %>%
   left_join(standings, by = c("team", "team_name", "year"))
 ```
+
+Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success.
+
 ```{r}
 ggplot(dat, aes(x = wins, y = home)) +
   geom_point(aes(color = playoffs)) +
@@ -34,20 +64,26 @@ ggplot(dat, aes(x = wins, y = home)) +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
 
-ggplot(dat, aes(x = playoffs, y = home)) +
+p1 <- ggplot(dat, aes(x = playoffs, y = home)) +
   geom_boxplot() +
   labs(x = "Playoff Birth", y = "Total Attendence at Home Games") +
-  ggtitle("Home Game Attendence vs Playoff Births") +
+  ggtitle("Home Game Attendence vs Playoff Births & Superbowl Winners") +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
 
-ggplot(dat, aes(x = sb_winner, y = home)) +
+p2 <- ggplot(dat, aes(x = sb_winner, y = home)) +
   geom_boxplot() +
   labs(x = "Superbowl Winner", y = "Total Attendence at Home Games") +
-  ggtitle("Home Game Attendence vs Superbowl Winners") +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
+
+p1 + p2
 ```
+There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. Although there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.
+
+# Question 2
+
+When is the optimal time and day for a NFL game to recieve the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.
 
 ```{r}
 games <- games %>%
@@ -60,18 +96,23 @@ games %>%
   summarize(avr_attendance = mean(weekly_attendance, na.rm = TRUE))
 ```
 
+So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.
+
+# Question 3
+
+Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.
 ```{r}
 dat <- attendance %>%
   left_join(standings, by = c("team", "team_name", "year"))
   
-ggplot(dat, aes(x = offensive_ranking, y = home)) +
+f1 <- ggplot(dat, aes(x = offensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Offensive Ranking", y = "Total Attendance at Home Games") +
   ggtitle("Home Game Attendance vs Offensive Ranking") +
   theme_economist()
 
-ggplot(dat, aes(x = points_for, y = home)) +
+f2 <- ggplot(dat, aes(x = points_for, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Points Scored in a Season", y = "Total Attendance at Home Games") +
@@ -79,7 +120,9 @@ ggplot(dat, aes(x = points_for, y = home)) +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
 
-ggplot(dat, aes(x = defensive_ranking, y = home)) +
+f1 / f2
+
+f3 <- ggplot(dat, aes(x = defensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Defensive Ranking", y = "Total Attendance at Home Games") +
@@ -87,11 +130,13 @@ ggplot(dat, aes(x = defensive_ranking, y = home)) +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
 
-ggplot(dat, aes(x = points_against, y = home)) +
+f4 <- ggplot(dat, aes(x = points_against, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Points Given Up in a Season", y = "Total Attendance at Home Games") +
   ggtitle("Home Game Attendance vs Points Given Up") +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
+
+f3 / f4
 ```
