@@ -88,29 +88,26 @@ games &lt;- readr::read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;
 
 </code></pre><pre><code class="language-{r}" data-lang="{r}">dat &lt;- attendance %&gt;%
   left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))
-
-ggplot(dat, aes(x = wins, y = home)) +
+</code></pre><pre><code class="language-{r}" data-lang="{r}">ggplot(dat, aes(x = wins, y = home)) +
   geom_point(aes(color = playoffs)) +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Wins&quot;, y = &quot;Total Attendence at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendence vs Wins and Playoff Births&quot;) +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
-
-ggplot(dat, aes(x = playoffs, y = home)) +
+</code></pre><pre><code class="language-{r}" data-lang="{r}">ggplot(dat, aes(x = playoffs, y = home)) +
   geom_boxplot() +
   labs(x = &quot;Playoff Birth&quot;, y = &quot;Total Attendence at Home Games&quot;) +
   ggtitle(&quot;Home Game Attendence vs Playoff Births&quot;) +
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))
+</code></pre><p>ggplot(dat, aes(x = sb_winner, y = home)) +
+geom_boxplot() +
+labs(x = &ldquo;Superbowl Winner&rdquo;, y = &ldquo;Total Attendence at Home Games&rdquo;) +
+ggtitle(&ldquo;Home Game Attendence vs Superbowl Winners&rdquo;) +
+theme_economist() +
+theme(plot.title = element_text(hjust = 0.35))</p>
 
-ggplot(dat, aes(x = sb_winner, y = home)) +
-  geom_boxplot() +
-  labs(x = &quot;Superbowl Winner&quot;, y = &quot;Total Attendence at Home Games&quot;) +
-  ggtitle(&quot;Home Game Attendence vs Superbowl Winners&quot;) +
-  theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))
-</code></pre>
     </div>
   </article>
 

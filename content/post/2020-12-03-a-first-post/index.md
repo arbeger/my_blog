@@ -6,7 +6,7 @@ slug: a-first-post
 categories: []
 tags: []
 ---
-```{r setup, include=FALSE, message=FALSE}
+```r setup, include=FALSE, message=FALSE
 knitr::opts_chunk$set(echo = TRUE)
 
 library(here)
@@ -21,10 +21,11 @@ games <- readr::read_csv(here::here("data", "tidytuesday", "games.csv"))
 
 ```
 
-```{r}
+```r
 dat <- attendance %>%
   left_join(standings, by = c("team", "team_name", "year"))
-
+```
+```r
 ggplot(dat, aes(x = wins, y = home)) +
   geom_point(aes(color = playoffs)) +
   geom_smooth(method = "lm") +

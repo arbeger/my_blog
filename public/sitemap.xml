@@ -4,16 +4,21 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2020/12/03/a-first-post/</loc>
-    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
+    <loc>/2020/12/08/european-energy-data-analysis/</loc>
+    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/12/03/a-first-post/</loc>
     <lastmod>2020-12-03T00:00:00+00:00</lastmod>
   </url>
   
