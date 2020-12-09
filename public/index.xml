@@ -13,7 +13,7 @@
       <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/08/european-energy-data-analysis/</guid>
-      <description>knitr::opts_chunk$set(echo = TRUE) library(here) library(ggplot2) library(tidyverse) library(readxl) library(ggthemes) energy_types &amp;lt;- readr::read_csv(here::here(&amp;#34;data&amp;#34;, &amp;#34;tidytuesday&amp;#34;, &amp;#34;energy_types.csv&amp;#34;)) country_totals &amp;lt;- readr::read_csv(here::here(&amp;#34;data&amp;#34;, &amp;#34;tidytuesday&amp;#34;, &amp;#34;country_totals.csv&amp;#34;)) energy_types %&amp;gt;% left_join(country_totals, by = c(&amp;#34;country&amp;#34;, &amp;#34;country_name&amp;#34;)) </description>
+      <description>energy_types %&amp;gt;% left_join(country_totals, by = c(&amp;quot;country&amp;quot;, &amp;quot;country_name&amp;quot;)) ## # A tibble: 1,480 x 12 ## country country_name type.x level.x `2016.x` `2017.x` `2018.x` type.y level.y ## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; ## 1 BE Belgium Conve… Level 1 30728 31316 30093. Total… Total ## 2 BE Belgium Conve… Level 1 30728 31316 30093. Impor… Total ## 3 BE Belgium Conve… Level 1 30728 31316 30093. Expor… Total ## 4 BE Belgium Conve… Level 1 30728 31316 30093.</description>
     </item>
     
     <item>

@@ -38,7 +38,7 @@
       <header class="header">
         <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="/images/me.jpg"
+    <img src="/images/anthony.jpg"
          width="50"
          height="50"
          alt="Logo">
@@ -76,19 +76,29 @@
     
 
     <div class="article-content">
-      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr<span style="color:#f92672">::</span>opts_chunk<span style="color:#f92672">$</span><span style="color:#a6e22e">set</span>(echo <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+      
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
 
-<span style="color:#a6e22e">library</span>(here)
-<span style="color:#a6e22e">library</span>(ggplot2)
-<span style="color:#a6e22e">library</span>(tidyverse)
-<span style="color:#a6e22e">library</span>(readxl)
-<span style="color:#a6e22e">library</span>(ggthemes)
 
-energy_types <span style="color:#f92672">&lt;-</span> readr<span style="color:#f92672">::</span><span style="color:#a6e22e">read_csv</span>(here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;data&#34;</span>, <span style="color:#e6db74">&#34;tidytuesday&#34;</span>, <span style="color:#e6db74">&#34;energy_types.csv&#34;</span>))
-country_totals <span style="color:#f92672">&lt;-</span> readr<span style="color:#f92672">::</span><span style="color:#a6e22e">read_csv</span>(here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;data&#34;</span>, <span style="color:#e6db74">&#34;tidytuesday&#34;</span>, <span style="color:#e6db74">&#34;country_totals.csv&#34;</span>))
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">energy_types <span style="color:#f92672">%&gt;%</span>
-  <span style="color:#a6e22e">left_join</span>(country_totals, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;country&#34;</span>, <span style="color:#e6db74">&#34;country_name&#34;</span>))
-</code></pre></div>
+<pre class="r"><code>energy_types %&gt;%
+  left_join(country_totals, by = c(&quot;country&quot;, &quot;country_name&quot;))</code></pre>
+<pre><code>## # A tibble: 1,480 x 12
+##    country country_name type.x level.x `2016.x` `2017.x` `2018.x` type.y level.y
+##    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  
+##  1 BE      Belgium      Conve… Level 1    30728   31316    30093. Total… Total  
+##  2 BE      Belgium      Conve… Level 1    30728   31316    30093. Impor… Total  
+##  3 BE      Belgium      Conve… Level 1    30728   31316    30093. Expor… Total  
+##  4 BE      Belgium      Conve… Level 1    30728   31316    30093. Energ… Total  
+##  5 BE      Belgium      Conve… Level 1    30728   31316    30093. Energ… Total  
+##  6 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Total… Total  
+##  7 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Impor… Total  
+##  8 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Expor… Total  
+##  9 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Energ… Total  
+## 10 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Energ… Total  
+## # … with 1,470 more rows, and 3 more variables: `2016.y` &lt;dbl&gt;, `2017.y` &lt;dbl&gt;,
+## #   `2018.y` &lt;dbl&gt;</code></pre>
+
     </div>
   </article>
 
@@ -124,9 +134,6 @@ country_totals <span style="color:#f92672">&lt;-</span> readr<span style="color:
 
 
     
-<script src="/js/math-code.js"></script>
-<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 
     
   </body>

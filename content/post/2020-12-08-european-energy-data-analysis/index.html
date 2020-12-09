@@ -1,0 +1,30 @@
+---
+title: European Energy Data Analysis
+author: ~
+date: '2020-12-08'
+slug: european-energy-data-analysis
+categories: []
+tags: []
+---
+
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<pre class="r"><code>energy_types %&gt;%
+  left_join(country_totals, by = c(&quot;country&quot;, &quot;country_name&quot;))</code></pre>
+<pre><code>## # A tibble: 1,480 x 12
+##    country country_name type.x level.x `2016.x` `2017.x` `2018.x` type.y level.y
+##    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  
+##  1 BE      Belgium      Conve… Level 1    30728   31316    30093. Total… Total  
+##  2 BE      Belgium      Conve… Level 1    30728   31316    30093. Impor… Total  
+##  3 BE      Belgium      Conve… Level 1    30728   31316    30093. Expor… Total  
+##  4 BE      Belgium      Conve… Level 1    30728   31316    30093. Energ… Total  
+##  5 BE      Belgium      Conve… Level 1    30728   31316    30093. Energ… Total  
+##  6 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Total… Total  
+##  7 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Impor… Total  
+##  8 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Expor… Total  
+##  9 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Energ… Total  
+## 10 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Energ… Total  
+## # … with 1,470 more rows, and 3 more variables: `2016.y` &lt;dbl&gt;, `2017.y` &lt;dbl&gt;,
+## #   `2018.y` &lt;dbl&gt;</code></pre>

@@ -38,7 +38,7 @@
       <header class="header">
         <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="/images/me.jpg"
+    <img src="/images/anthony.jpg"
          width="50"
          height="50"
          alt="Logo">
@@ -66,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">NFL Attendence</h1>
@@ -105,6 +105,65 @@
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<pre class="r"><code>games &lt;- games %&gt;%
+  mutate(week = as.numeric(week))</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>games %&gt;%
+  left_join(attendance, by = c(&quot;home_team_city&quot; = &quot;team&quot;, &quot;home_team_name&quot; = &quot;team_name&quot;, &quot;year&quot;, &quot;week&quot;)) %&gt;%
+  filter(day == c(&quot;Sun&quot;, &quot;Mon&quot;, &quot;Thu&quot;)) %&gt;%
+  group_by(day, time) %&gt;%
+  summarize(avr_attendance = mean(weekly_attendance, na.rm = TRUE))</code></pre>
+<pre><code>## Warning in day == c(&quot;Sun&quot;, &quot;Mon&quot;, &quot;Thu&quot;): longer object length is not a multiple
+## of shorter object length</code></pre>
+<pre><code>## # A tibble: 136 x 3
+## # Groups:   day [3]
+##    day   time   avr_attendance
+##    &lt;chr&gt; &lt;time&gt;          &lt;dbl&gt;
+##  1 Mon   19:10          70571.
+##  2 Mon   19:11          78044.
+##  3 Mon   19:13          66860 
+##  4 Mon   19:20          45910 
+##  5 Mon   19:26          78127 
+##  6 Mon   20:10          65477 
+##  7 Mon   20:15          69070 
+##  8 Mon   20:30          72581.
+##  9 Mon   20:31          69957 
+## 10 Mon   20:32          69596 
+## # … with 126 more rows</code></pre>
+<pre class="r"><code>dat &lt;- attendance %&gt;%
+  left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))
+  
+ggplot(dat, aes(x = offensive_ranking, y = home)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Offensive Ranking&quot;, y = &quot;Total Attendance at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendance vs Offensive Ranking&quot;) +
+  theme_economist()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(dat, aes(x = points_for, y = home)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Points Scored in a Season&quot;, y = &quot;Total Attendance at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendance vs Points Scored&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(dat, aes(x = defensive_ranking, y = home)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Defensive Ranking&quot;, y = &quot;Total Attendance at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendance vs Defensive Ranking&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(dat, aes(x = points_against, y = home)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Points Given Up in a Season&quot;, y = &quot;Total Attendance at Home Games&quot;) +
+  ggtitle(&quot;Home Game Attendance vs Points Given Up&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-4.png" width="672" /></p>
 
     </div>
   </article>
