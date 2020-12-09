@@ -99,7 +99,7 @@ games %>%
 
 So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.
 
-# Question 3
+# Question 
 
 Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.
 ```{r}
