@@ -30,9 +30,51 @@ The second dataset I will use to explore European Energy production is the `coun
 
 # Question 1
 
-Which European country has the largest percentage of their total energy production made up of renewables? To find this, I joined the energy types and country totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable.
+Which European country had the largest percentage of their total energy production made up of renewable energy in 2018? Which European country had the largest percentage of their total energy production made up of clean energy? To find this, I joined the energy types and country totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable.
 
 ```{r}
-energy_types %>%
-  left_join(country_totals, by = c("country", "country_name"))
+dat <- energy_types %>%
+  left_join(country_totals, by = c("country", "country_name")) %>%
+  rename(twenty_16.x = '2016.x', twenty_17.x = '2017.x', twenty_18.x = '2018.x') %>%
+  filter(type.x == c("Hydro", "Pumped hydro power", "Wind", "Solar", "Geothermal", "Other")) %>%
+  group_by(country) %>%
+  summarize(renew_2016 = sum(twenty_16.x), renew_2017 = sum(twenty_17.x), renew_2018 = sum(twenty_18.x)) 
+
+dat2 <-  energy_types %>%
+  filter(type == "Conventional thermal") %>%
+  rename(twenty_16 = '2016', twenty_17 = '2017', twenty_18 = '2018') %>%
+  group_by(country) %>%
+  summarize(conventional_2016 = sum(twenty_16), conventional_2017 = sum(twenty_17), conventional_2018 = sum(twenty_18))
+  
+dat3 <-  energy_types %>%
+  filter(type == "Nuclear") %>%
+  rename(twenty_16 = '2016', twenty_17 = '2017', twenty_18 = '2018') %>%
+  group_by(country) %>%
+  summarize(nuclear_2016 = sum(twenty_16), nuclear_2017 = sum(twenty_17), nuclear_2018 = sum(twenty_18))
+
+data_18 <- country_totals  %>%
+  left_join(dat, by = "country") %>%
+  left_join(dat2, by = "country") %>%
+  left_join(dat3, by = "country") %>%
+  filter(type == "Total net production") %>%
+  select(1, 2, 10, 13 , 16) %>%
+  mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018)
+
+ggplot(data_18, aes(x = country, y = renew_2018/total_2018)) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Country", y = "Percentage Renewable Energy") +
+  ggtitle("Percentage of Total Energy Production that is Renewable by European Country in 2018") +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  theme(plot.title = element_text(size = 11))
 ```
+
+
+# Question 2
+
+Which European country has made the biggest shift towards renewable energy since 2016? 
+
+# Question 3
+
+Is there a correlation between the European countries with the biggest energy outputs and using more convential thermal energy?

@@ -13,7 +13,7 @@
       <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/08/european-energy-data-analysis/</guid>
-      <description>European Energy usage: Clean Energy vs. Conventional Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the energy_types.csv file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</description>
+      <description>European Energy Usage: Clean Energy vs. Conventional Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the energy_types.csv file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</description>
     </item>
     
     <item>
