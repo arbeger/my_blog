@@ -69,7 +69,7 @@ ggplot(data_18, aes(x = country, y = renew_2018/total_2018)) +
   geom_bar(stat = "identity") +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "Country", y = "Percentage Renewable Energy") +
-  ggtitle("Percentage of Total Energy Production that is Renewable by European Country in 2018") +
+  ggtitle("Percentage of Total Energy Production that was Renewable by European Country in 2018") +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(plot.title = element_text(size = 11))
@@ -78,16 +78,41 @@ ggplot(data_18, aes(x = country, y = (renew_2018 + nuclear_2018)/total_2018)) +
   geom_bar(stat = "identity") +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "Country", y = "Percentage Clean Energy") +
-  ggtitle("Percentage of Total Energy Production that is Clean by European Country in 2018") +
+  ggtitle("Percentage of Total Energy Production that was Clean by European Country in 2018") +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(plot.title = element_text(size = 11))
 ```
-
+Albania was the country with both the highest percentage of Renewable energy and Clean energy, since 100% of their energy production was made by renewable sources. Norway was not far behind with over 90% of their energy production coming from renewable sources. Also Countries such as France and Sweden saw a large increase when comparing their Renewable Energy percentage to their Clean Energy percentage, indicating a large use of nuclear power in these countries.
 
 # Question 2
 
-Which European country has made the biggest shift towards renewable energy since 2016? 
+Which European country made the biggest shift towards renewable energy from 2016 to 2018?
+
+```{r}
+shift_data <- dat  %>%
+  left_join(dat2, by = "country") %>%
+  left_join(dat3, by = "country") %>%
+  mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018, total_2017 = renew_2017 + conventional_2017 + nuclear_2017, total_2016 = renew_2016 + conventional_2016 + nuclear_2016) %>%
+  select(1:4, 11:13) %>%
+  group_by(country) %>%
+  summarize(renew_16_prc = renew_2016/total_2016, renew_18_prc = renew_2018/total_2018) %>%
+  mutate(shift = renew_18_prc - renew_16_prc) %>%
+  arrange(desc(shift))
+
+big_shift <- shift_data[1:10, ]
+big_shift
+```
+
+```{r}
+ggplot(big_shift, aes(x = reorder(country, -shift), y = shift)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Country", y = "Percentage Shift to Renewable Energy") +
+  ggtitle("The 10 European Countries with the biggest shift towards Renewable Energy from 2016 to 2018") +
+  theme_economist() +
+  theme(plot.title = element_text(size = 10, hjust = 0))
+```
 
 # Question 3
 

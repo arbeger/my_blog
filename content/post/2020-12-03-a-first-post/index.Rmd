@@ -144,3 +144,7 @@ f3 / f4
 ```
 
 The graphs show that both a good offense and defense attract slightly larger crowds to NFL games. 
+
+# Conclusions:
+
+TBD
