@@ -15,10 +15,22 @@ library(ggplot2)
 library(tidyverse)
 library(readxl)
 library(ggthemes)
+library(patchwork)
 
 energy_types <- readr::read_csv(here::here("data", "tidytuesday", "energy_types.csv"))
 country_totals <- readr::read_csv(here::here("data", "tidytuesday", "country_totals.csv"))
 ```
+
+# European Energy Usage: Clean Energy vs. Conventional
+
+Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the `energy_types.csv` file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.
+
+The second dataset I will use to explore European Energy production is the `country_totals.csv` file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from 
+2016-2018 as well as the total energy production of each country.
+
+# Question 1
+
+Which European country has the largest percentage of their total energy production made up of renewables? To find this, I joined the energy types and country totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable.
 
 ```{r}
 energy_types %>%

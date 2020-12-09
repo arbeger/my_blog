@@ -66,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">2 min read</span>
     
 
     <h1 class="article-title">European Energy Data Analysis</h1>
@@ -81,6 +81,15 @@
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="european-energy-usage-clean-energy-vs.-conventional" class="section level1">
+<h1>European Energy usage: Clean Energy vs. Conventional</h1>
+<p>Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the <code>energy_types.csv</code> file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</p>
+<p>The second dataset I will use to explore European Energy production is the <code>country_totals.csv</code> file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from
+2016-2018 as well as the total energy production of each country.</p>
+</div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<p>Which European country has the largest percentage of their total energy production made up of renewables? To find this, I joined the energy_types and country_totals datasets. I will also mutate the dataset to combine all of types of energy production that are renewable.</p>
 <pre class="r"><code>energy_types %&gt;%
   left_join(country_totals, by = c(&quot;country&quot;, &quot;country_name&quot;))</code></pre>
 <pre><code>## # A tibble: 1,480 x 12
@@ -98,6 +107,7 @@
 ## 10 BE      Belgium      Nucle… Level 1    41430   40128.   26996. Energ… Total  
 ## # … with 1,470 more rows, and 3 more variables: `2016.y` &lt;dbl&gt;, `2017.y` &lt;dbl&gt;,
 ## #   `2018.y` &lt;dbl&gt;</code></pre>
+</div>
 
     </div>
   </article>

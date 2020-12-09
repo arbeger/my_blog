@@ -62,7 +62,7 @@ patchwork &lt;- p1 + p2
 patchwork + 
   plot_annotation(title = &quot;Home Game Attendence vs Playoff Births &amp; Superbowl Winners&quot;) </code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="672" />
-There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. Although there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.</p>
+There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.</p>
 </div>
 <div id="question-2" class="section level1">
 <h1>Question 2</h1>
@@ -94,8 +94,8 @@ There is a clear positive correlation between teams that went to the playoffs an
 ## # … with 126 more rows</code></pre>
 <p>So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.</p>
 </div>
-<div id="question" class="section level1">
-<h1>Question</h1>
+<div id="question-3" class="section level1">
+<h1>Question 3</h1>
 <p>Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.</p>
 <pre class="r"><code>dat &lt;- attendance %&gt;%
   left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))

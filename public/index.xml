@@ -13,7 +13,7 @@
       <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/08/european-energy-data-analysis/</guid>
-      <description>energy_types %&amp;gt;% left_join(country_totals, by = c(&amp;quot;country&amp;quot;, &amp;quot;country_name&amp;quot;)) ## # A tibble: 1,480 x 12 ## country country_name type.x level.x `2016.x` `2017.x` `2018.x` type.y level.y ## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; ## 1 BE Belgium Conve… Level 1 30728 31316 30093. Total… Total ## 2 BE Belgium Conve… Level 1 30728 31316 30093. Impor… Total ## 3 BE Belgium Conve… Level 1 30728 31316 30093. Expor… Total ## 4 BE Belgium Conve… Level 1 30728 31316 30093.</description>
+      <description>European Energy usage: Clean Energy vs. Conventional Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the energy_types.csv file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</description>
     </item>
     
     <item>
