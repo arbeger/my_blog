@@ -4,7 +4,7 @@ title = "DASC blog"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$", "\\.csv$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$", "\\.csv$", "\\.jpg$", "\\.png$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
@@ -21,7 +21,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 [[menu.main]]
     name = "Resume"
     url = "/my_resume.pdf"
-
+[[menu.main]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/anthony-beger-1025601ba/"
+    
 [params]
     description = "A website built through Hugo and blogdown."
 
@@ -38,7 +41,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
     favicon = "favicon.ico"
 
     [params.logo]
-    url = "~/public/images/me.jpg"
+    url = "me.jpg"
     width = 50
     height = 50
     alt = "Logo"

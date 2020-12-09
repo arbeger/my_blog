@@ -13,7 +13,7 @@
       <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/08/european-energy-data-analysis/</guid>
-      <description></description>
+      <description>knitr::opts_chunk$set(echo = TRUE) library(here) library(ggplot2) library(tidyverse) library(readxl) library(ggthemes) energy_types &amp;lt;- readr::read_csv(here::here(&amp;#34;data&amp;#34;, &amp;#34;tidytuesday&amp;#34;, &amp;#34;energy_types.csv&amp;#34;)) country_totals &amp;lt;- readr::read_csv(here::here(&amp;#34;data&amp;#34;, &amp;#34;tidytuesday&amp;#34;, &amp;#34;country_totals.csv&amp;#34;)) energy_types %&amp;gt;% left_join(country_totals, by = c(&amp;#34;country&amp;#34;, &amp;#34;country_name&amp;#34;)) </description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/03/a-first-post/</guid>
-      <description>knitr::opts_chunk$set(echo = TRUE) library(here) library(ggplot2) library(tidyverse) library(readxl) library(ggthemes) attendance &amp;lt;- readr::read_csv(here::here(&amp;quot;data&amp;quot;, &amp;quot;tidytuesday&amp;quot;, &amp;quot;attendence.csv&amp;quot;)) standings &amp;lt;- readr::read_csv(here::here(&amp;quot;data&amp;quot;, &amp;quot;tidytuesday&amp;quot;, &amp;quot;standings.csv&amp;quot;)) games &amp;lt;- readr::read_csv(here::here(&amp;quot;data&amp;quot;, &amp;quot;tidytuesday&amp;quot;, &amp;quot;games.csv&amp;quot;)) dat &amp;lt;- attendance %&amp;gt;% left_join(standings, by = c(&amp;quot;team&amp;quot;, &amp;quot;team_name&amp;quot;, &amp;quot;year&amp;quot;)) ggplot(dat, aes(x = wins, y = home)) + geom_point(aes(color = playoffs)) + geom_smooth(method = &amp;quot;lm&amp;quot;) + labs(x = &amp;quot;Wins&amp;quot;, y = &amp;quot;Total Attendence at Home Games&amp;quot;) + ggtitle(&amp;quot;Home Game Attendence vs Wins and Playoff Births&amp;quot;) + theme_economist() + theme(plot.</description>
+      <description>dat &amp;lt;- attendance %&amp;gt;% left_join(standings, by = c(&amp;quot;team&amp;quot;, &amp;quot;team_name&amp;quot;, &amp;quot;year&amp;quot;)) ggplot(dat, aes(x = wins, y = home)) + geom_point(aes(color = playoffs)) + geom_smooth(method = &amp;quot;lm&amp;quot;) + labs(x = &amp;quot;Wins&amp;quot;, y = &amp;quot;Total Attendence at Home Games&amp;quot;) + ggtitle(&amp;quot;Home Game Attendence vs Wins and Playoff Births&amp;quot;) + theme_economist() + theme(plot.title = element_text(hjust = 0.35)) ggplot(dat, aes(x = playoffs, y = home)) + geom_boxplot() + labs(x = &amp;quot;Playoff Birth&amp;quot;, y = &amp;quot;Total Attendence at Home Games&amp;quot;) + ggtitle(&amp;quot;Home Game Attendence vs Playoff Births&amp;quot;) + theme_economist() + theme(plot.</description>
     </item>
     
     <item>

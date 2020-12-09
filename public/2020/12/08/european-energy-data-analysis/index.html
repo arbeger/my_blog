@@ -22,6 +22,11 @@
 
 
 
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
@@ -33,7 +38,7 @@
       <header class="header">
         <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="/images/~/public/images/me.jpg"
+    <img src="/images/me.jpg"
          width="50"
          height="50"
          alt="Logo">
@@ -44,6 +49,8 @@
     <li><a href="/about/">About</a></li>
     
     <li><a href="https://github.com/arbeger">GitHub</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/anthony-beger-1025601ba/">LinkedIn</a></li>
     
     <li><a href="/my_resume.pdf">Resume</a></li>
     
@@ -59,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">0 min read</span>
+    <span class="article-duration">1 min read</span>
     
 
     <h1 class="article-title">European Energy Data Analysis</h1>
@@ -69,7 +76,19 @@
     
 
     <div class="article-content">
-      
+      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr<span style="color:#f92672">::</span>opts_chunk<span style="color:#f92672">$</span><span style="color:#a6e22e">set</span>(echo <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+
+<span style="color:#a6e22e">library</span>(here)
+<span style="color:#a6e22e">library</span>(ggplot2)
+<span style="color:#a6e22e">library</span>(tidyverse)
+<span style="color:#a6e22e">library</span>(readxl)
+<span style="color:#a6e22e">library</span>(ggthemes)
+
+energy_types <span style="color:#f92672">&lt;-</span> readr<span style="color:#f92672">::</span><span style="color:#a6e22e">read_csv</span>(here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;data&#34;</span>, <span style="color:#e6db74">&#34;tidytuesday&#34;</span>, <span style="color:#e6db74">&#34;energy_types.csv&#34;</span>))
+country_totals <span style="color:#f92672">&lt;-</span> readr<span style="color:#f92672">::</span><span style="color:#a6e22e">read_csv</span>(here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;data&#34;</span>, <span style="color:#e6db74">&#34;tidytuesday&#34;</span>, <span style="color:#e6db74">&#34;country_totals.csv&#34;</span>))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">energy_types <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">left_join</span>(country_totals, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;country&#34;</span>, <span style="color:#e6db74">&#34;country_name&#34;</span>))
+</code></pre></div>
     </div>
   </article>
 
@@ -92,7 +111,22 @@
     </div>
     
 
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
     
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
     
   </body>
