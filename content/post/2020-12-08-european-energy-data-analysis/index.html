@@ -13,7 +13,7 @@ tags: []
 
 <div id="european-energy-usage-clean-energy-vs.-conventional" class="section level1">
 <h1>European Energy Usage: Clean Energy vs. Conventional</h1>
-<p>Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the <code>energy_types.csv</code> file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</p>
+<p>Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy and clean energy. I will be examining data from the <code>energy_types.csv</code> file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</p>
 <p>The second dataset I will use to explore European Energy production is the <code>country_totals.csv</code> file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from 2016-2018 as well as the total energy production of each country.</p>
 <p>For the purposes of this blog post Renewable Energy will be hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other energy productions and clean energy will be renewable energy plus nuclear energy.</p>
 </div>
@@ -47,7 +47,7 @@ data_18 &lt;- country_totals  %&gt;%
   filter(type == &quot;Total net production&quot;) %&gt;%
   select(1, 2, 10, 13 , 16) %&gt;%
   mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018)</code></pre>
-<p>Next I used the dataset that I made with the summarized 2018 energy data to make 2 bar graphs that compare all the European Countries based on the percentage of their total energy output was made up of Renewable Energy and of Clean Energy in 2018, respectively.</p>
+<p>Next I used the dataset that I made with the summarized 2018 energy data to make 2 bar graphs that compare all the European Countries based on the percentage of their total energy output was made up of Renewable Energy and of Clean Energy, respectively, in 2018.</p>
 <pre class="r"><code>ggplot(data_18, aes(x = reorder(country, -renew_2018/total_2018), y = renew_2018/total_2018)) +
   geom_bar(stat = &quot;identity&quot;) +
   scale_y_continuous(labels = scales::percent) +
