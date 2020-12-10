@@ -23,7 +23,7 @@ country_totals <- readr::read_csv(here::here("data", "tidytuesday", "country_tot
 
 # European Energy Usage: Clean Energy vs. Conventional
 
-Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the `energy_types.csv` file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.
+Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the `energy_types.csv` file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.
 
 The second dataset I will use to explore European Energy production is the `country_totals.csv` file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from 2016-2018 as well as the total energy production of each country.
 
@@ -65,23 +65,25 @@ data_18 <- country_totals  %>%
 Next I used the dataset that I made with the summarized 2018 energy data to make 2 bar graphs that compare all the European Countries based on the percentage of their total energy output was made up of Renewable Energy and of Clean Energy in 2018, respectively.
 
 ```{r}
-ggplot(data_18, aes(x = country, y = renew_2018/total_2018)) +
+ggplot(data_18, aes(x = reorder(country, -renew_2018/total_2018), y = renew_2018/total_2018)) +
   geom_bar(stat = "identity") +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "Country", y = "Percentage Renewable Energy") +
-  ggtitle("Percentage of Total Energy Production that was Renewable by European Country in 2018") +
+  ggtitle("Percentage of Total Energy Production that was Renewable 
+          by European Country in 2018") +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  theme(plot.title = element_text(size = 11))
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
 
-ggplot(data_18, aes(x = country, y = (renew_2018 + nuclear_2018)/total_2018)) +
+ggplot(data_18, aes(x = reorder(country, -(renew_2018 + nuclear_2018)/total_2018), y = (renew_2018 + nuclear_2018)/total_2018)) +
   geom_bar(stat = "identity") +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "Country", y = "Percentage Clean Energy") +
-  ggtitle("Percentage of Total Energy Production that was Clean by European Country in 2018") +
+  ggtitle("Percentage of Total Energy Production that was Clean 
+          by European Country in 2018") +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  theme(plot.title = element_text(size = 11))
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
 ```
 Albania was the country with both the highest percentage of Renewable energy and Clean energy, since 100% of their energy production was made by renewable sources. Norway was not far behind with over 90% of their energy production coming from renewable sources. Also Countries such as France and Sweden saw a large increase when comparing their Renewable Energy percentage to their Clean Energy percentage, indicating a large use of nuclear power in these countries.
 
@@ -109,11 +111,49 @@ ggplot(big_shift, aes(x = reorder(country, -shift), y = shift)) +
   geom_col() +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "Country", y = "Percentage Shift to Renewable Energy") +
-  ggtitle("The 10 European Countries with the biggest shift towards Renewable Energy from 2016 to 2018") +
+  ggtitle("The 10 European Countries with the biggest shift towards 
+          Renewable Energy from 2016 to 2018") +
   theme_economist() +
-  theme(plot.title = element_text(size = 10, hjust = 0))
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
 ```
 
 # Question 3
 
-Is there a correlation between the European countries with the biggest energy outputs and using more convential thermal energy?
+Is there a correlation between the European countries with the biggest energy outputs and using more conventional thermal energy?
+
+```{r}
+sort_total <- country_totals  %>%
+  left_join(dat, by = "country") %>%
+  left_join(dat2, by = "country") %>%
+  left_join(dat3, by = "country") %>%
+  filter(type == "Total net production") %>%
+  select(1, 2, 10, 13 , 16) %>%
+  mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018, average_prc_conventional = mean(conventional_2018)/mean(total_2018)) %>%
+  arrange(desc(total_2018))
+
+top_output <- sort_total[1:10, ]
+
+ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Total Energy Production", y = "Conventional Thermal Energy Production") +
+  ggtitle("Total Energy Production vs Conventional Thermal Energy
+          Production in Europe for 2018") +
+  theme_economist() +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
+
+ggplot(top_output, aes(x = reorder(country, -total_2018), y = conventional_2018/total_2018)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent) +
+  geom_hline(yintercept = 0.4499, linetype="dashed", color = "red") +
+  labs(x = "Country", y = "Percentage Conventional Thermal Energy Production") +
+  ggtitle("Percentage Conventional Thermal Energy Production among the 
+          top 10 Energy Producing European Countries for 2018") +
+  theme_economist() +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
+```
+
+
+# Conclusions:
+
+TBD

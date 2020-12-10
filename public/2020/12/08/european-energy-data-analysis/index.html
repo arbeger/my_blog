@@ -66,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">5 min read</span>
+    <span class="article-duration">6 min read</span>
     
 
     <h1 class="article-title">European Energy Data Analysis</h1>
@@ -83,7 +83,7 @@
 
 <div id="european-energy-usage-clean-energy-vs.-conventional" class="section level1">
 <h1>European Energy Usage: Clean Energy vs. Conventional</h1>
-<p>Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the <code>energy_types.csv</code> file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays each the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</p>
+<p>Using data that is available on the Tidy Tuesday website on European Energy, I will investigate the energy usage among European countries with an emphasis on which countries are the best at using renewable energy. I will be examining data from the <code>energy_types.csv</code> file from the Tidy Tuesday website. The data consists of 296 observations and 7 variables. The data displays the energy production from each European country from 2016-2018 and breaks it down by how much energy was produced by conventional thermal, nuclear, hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other.</p>
 <p>The second dataset I will use to explore European Energy production is the <code>country_totals.csv</code> file from the Tidy Tuesday website. The data consists of 185 observations and 7 variables. The data displays the total energy consumption of each European country from 2016-2018 as well as the total energy production of each country.</p>
 <p>For the purposes of this blog post Renewable Energy will be hydroelectric, pumped hydroelectric, wind, solar, geothermal, and other energy productions and clean energy will be renewable energy plus nuclear energy.</p>
 </div>
@@ -118,23 +118,25 @@ data_18 &lt;- country_totals  %&gt;%
   select(1, 2, 10, 13 , 16) %&gt;%
   mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018)</code></pre>
 <p>Next I used the dataset that I made with the summarized 2018 energy data to make 2 bar graphs that compare all the European Countries based on the percentage of their total energy output was made up of Renewable Energy and of Clean Energy in 2018, respectively.</p>
-<pre class="r"><code>ggplot(data_18, aes(x = country, y = renew_2018/total_2018)) +
+<pre class="r"><code>ggplot(data_18, aes(x = reorder(country, -renew_2018/total_2018), y = renew_2018/total_2018)) +
   geom_bar(stat = &quot;identity&quot;) +
   scale_y_continuous(labels = scales::percent) +
   labs(x = &quot;Country&quot;, y = &quot;Percentage Renewable Energy&quot;) +
-  ggtitle(&quot;Percentage of Total Energy Production that was Renewable by European Country in 2018&quot;) +
+  ggtitle(&quot;Percentage of Total Energy Production that was Renewable 
+          by European Country in 2018&quot;) +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  theme(plot.title = element_text(size = 11))</code></pre>
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(data_18, aes(x = country, y = (renew_2018 + nuclear_2018)/total_2018)) +
+<pre class="r"><code>ggplot(data_18, aes(x = reorder(country, -(renew_2018 + nuclear_2018)/total_2018), y = (renew_2018 + nuclear_2018)/total_2018)) +
   geom_bar(stat = &quot;identity&quot;) +
   scale_y_continuous(labels = scales::percent) +
   labs(x = &quot;Country&quot;, y = &quot;Percentage Clean Energy&quot;) +
-  ggtitle(&quot;Percentage of Total Energy Production that was Clean by European Country in 2018&quot;) +
+  ggtitle(&quot;Percentage of Total Energy Production that was Clean 
+          by European Country in 2018&quot;) +
   theme_economist() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  theme(plot.title = element_text(size = 11))</code></pre>
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="672" />
 Albania was the country with both the highest percentage of Renewable energy and Clean energy, since 100% of their energy production was made by renewable sources. Norway was not far behind with over 90% of their energy production coming from renewable sources. Also Countries such as France and Sweden saw a large increase when comparing their Renewable Energy percentage to their Clean Energy percentage, indicating a large use of nuclear power in these countries.</p>
 </div>
@@ -170,14 +172,49 @@ big_shift</code></pre>
   geom_col() +
   scale_y_continuous(labels = scales::percent) +
   labs(x = &quot;Country&quot;, y = &quot;Percentage Shift to Renewable Energy&quot;) +
-  ggtitle(&quot;The 10 European Countries with the biggest shift towards Renewable Energy from 2016 to 2018&quot;) +
+  ggtitle(&quot;The 10 European Countries with the biggest shift towards 
+          Renewable Energy from 2016 to 2018&quot;) +
   theme_economist() +
-  theme(plot.title = element_text(size = 10, hjust = 0))</code></pre>
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="question-3" class="section level1">
 <h1>Question 3</h1>
-<p>Is there a correlation between the European countries with the biggest energy outputs and using more convential thermal energy?</p>
+<p>Is there a correlation between the European countries with the biggest energy outputs and using more conventional thermal energy?</p>
+<pre class="r"><code>sort_total &lt;- country_totals  %&gt;%
+  left_join(dat, by = &quot;country&quot;) %&gt;%
+  left_join(dat2, by = &quot;country&quot;) %&gt;%
+  left_join(dat3, by = &quot;country&quot;) %&gt;%
+  filter(type == &quot;Total net production&quot;) %&gt;%
+  select(1, 2, 10, 13 , 16) %&gt;%
+  mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018, average_prc_conventional = mean(conventional_2018)/mean(total_2018)) %&gt;%
+  arrange(desc(total_2018))
+
+top_output &lt;- sort_total[1:10, ]
+
+ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Total Energy Production&quot;, y = &quot;Conventional Thermal Energy Production&quot;) +
+  ggtitle(&quot;Total Energy Production vs Conventional Thermal Energy
+          Production in Europe for 2018&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(top_output, aes(x = reorder(country, -total_2018), y = conventional_2018/total_2018)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent) +
+  geom_hline(yintercept = 0.4499, linetype=&quot;dashed&quot;, color = &quot;red&quot;) +
+  labs(x = &quot;Country&quot;, y = &quot;Percentage Conventional Thermal Energy Production&quot;) +
+  ggtitle(&quot;Percentage Conventional Thermal Energy Production among the 
+          top 10 Energy Producing European Countries for 2018&quot;) +
+  theme_economist() +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+</div>
+<div id="conclusions" class="section level1">
+<h1>Conclusions:</h1>
+<p>TBD</p>
 </div>
 
     </div>
