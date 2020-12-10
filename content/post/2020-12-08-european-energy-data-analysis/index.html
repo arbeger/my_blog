@@ -19,7 +19,7 @@ tags: []
 </div>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
-<p>Which European country had the largest percentage of their total energy production made up of renewable energy in 2018? Which European country had the largest percentage of their total energy production made up of clean energy? To find this, I made 3 separate data frames to summarize the total renewable energy, nuclear energy, and conventional thermal energy that each European Country used. I then joined the 3 data frames and selected the columns with the 2018 data to make one dataset with all of the summarized energy data from 2018.</p>
+<p>Which European country had the largest percentage of their total energy production made up of renewable energy in 2018? Which European country had the largest percentage of their total energy production made up of clean energy? To find this, I made 3 separate data frames to summarize the total renewable energy, nuclear energy, and conventional thermal energy that each European Country produced. I then joined the 3 data frames and selected the columns with the 2018 data to make one dataset with all of the summarized energy data from 2018.</p>
 <pre class="r"><code>dat &lt;- energy_types %&gt;%
   left_join(country_totals, by = c(&quot;country&quot;, &quot;country_name&quot;)) %&gt;%
   rename(twenty_16.x = &#39;2016.x&#39;, twenty_17.x = &#39;2017.x&#39;, twenty_18.x = &#39;2018.x&#39;) %&gt;%
@@ -72,7 +72,7 @@ Albania was the country with both the highest percentage of Renewable energy and
 </div>
 <div id="question-2" class="section level1">
 <h1>Question 2</h1>
-<p>Which European country made the biggest shift towards renewable energy from 2016 to 2018?</p>
+<p>Which European country made the biggest shift towards renewable energy from 2016 to 2018? To find this, I joined the 3 data frames that I already made to summarize the total renewable energy, nuclear energy, and conventional thermal energy that each European Country produced. Next, I used summarize to find the percent of energy production that was renewable in each country in both 2016 and 2018. Lastly, I used mutate to make a shift variable that shows the change in percentage of energy production that was renewable in each country from 2016 to 2018 and I used arrange to have the countries with largest shifts at the top of the data.</p>
 <pre class="r"><code>shift_data &lt;- dat  %&gt;%
   left_join(dat2, by = &quot;country&quot;) %&gt;%
   left_join(dat3, by = &quot;country&quot;) %&gt;%
@@ -98,6 +98,7 @@ big_shift</code></pre>
 ##  8 DK            0.466         0.514 0.0479
 ##  9 NL            0.0902        0.131 0.0412
 ## 10 HR            0.660         0.700 0.0393</code></pre>
+<p>Next, I shortened the data to have just the 10 European countries with the largest shifts. I then used this data to make a bar graph with these 10 counties and their percentage shift towards renewable energy, so that the results could be better visualized.</p>
 <pre class="r"><code>ggplot(big_shift, aes(x = reorder(country, -shift), y = shift)) +
   geom_col() +
   scale_y_continuous(labels = scales::percent) +
@@ -106,11 +107,10 @@ big_shift</code></pre>
           Renewable Energy from 2016 to 2018&quot;) +
   theme_economist() +
   theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-</div>
-<div id="question-3" class="section level1">
-<h1>Question 3</h1>
-<p>Is there a correlation between the European countries with the biggest energy outputs and using more conventional thermal energy?</p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Bosnia &amp; Herzegovina was the country that saw the biggest shift, but they were followed closely by Lithuania. They were the only 2 countries that had over a 10% shift in production of renewable sources of energy.
+# Question 3</p>
+<p>Is there a correlation between the European countries with the biggest energy outputs and using more conventional thermal energy? To find this, I again joined the 3 data frames that I already made to summarize the total renewable energy, nuclear energy, and conventional thermal energy that each European Country produced. Next, I arranged the data so that the countries with the highest total energy production were at the top of the data and I made a second dataset that shortened the data down to just the 10 European countries with the highest total energy production in 2018.</p>
 <pre class="r"><code>sort_total &lt;- country_totals  %&gt;%
   left_join(dat, by = &quot;country&quot;) %&gt;%
   left_join(dat2, by = &quot;country&quot;) %&gt;%
@@ -120,9 +120,9 @@ big_shift</code></pre>
   mutate(total_2018 = renew_2018 + conventional_2018 + nuclear_2018, average_prc_conventional = mean(conventional_2018)/mean(total_2018)) %&gt;%
   arrange(desc(total_2018))
 
-top_output &lt;- sort_total[1:10, ]
-
-ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
+top_output &lt;- sort_total[1:10, ]</code></pre>
+<p>I used this data to make some visuals that help reveal whether or not their is a trend between the countries with the highest total energy production and a higher use of conventional thermal energy. The first graph plots all the European countries as a point based on their total energy production and their conventional energy production. The second graph has just the top 10 energy producing European nations and plots the percentage of their total energy production that is from conventional thermal sources, and I added a red dashed line that represents the average percent among all the European nations in 2018.</p>
+<pre class="r"><code>ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
   labs(x = &quot;Total Energy Production&quot;, y = &quot;Conventional Thermal Energy Production&quot;) +
@@ -130,7 +130,7 @@ ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
           Production in Europe for 2018&quot;) +
   theme_economist() +
   theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(top_output, aes(x = reorder(country, -total_2018), y = conventional_2018/total_2018)) +
   geom_col() +
   scale_y_continuous(labels = scales::percent) +
@@ -140,7 +140,8 @@ ggplot(sort_total, aes(x = total_2018, y = conventional_2018)) +
           top 10 Energy Producing European Countries for 2018&quot;) +
   theme_economist() +
   theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p>The data suggests that their is some trend between countries with higher total energy output and higher use of conventional thermal sources. However, there are some very notable exceptions, such as France, Sweden, and Norway.</p>
 </div>
 <div id="conclusions" class="section level1">
 <h1>Conclusions:</h1>
