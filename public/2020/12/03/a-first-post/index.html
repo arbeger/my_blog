@@ -66,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">5 min read</span>
+    <span class="article-duration">6 min read</span>
     
 
     <h1 class="article-title">NFL Data Analysis</h1>
@@ -102,12 +102,12 @@ played on different times and dates have different amounts of attendance.</p>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
 <p>Do playoff teams have more attendance at their home games than non-playoff teams? If so,
-does the superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
+does the Superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
 dataset and the standings dataset to compare the attendance data and whether or not each team
 made the playoffs.</p>
 <pre class="r"><code>dat &lt;- attendance %&gt;%
   left_join(standings, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;))</code></pre>
-<p>Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success.</p>
+<p>Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success. The first graphic I made plots the total attendance at home games for that season against the number wins that team had and whether or not they made the playoffs.</p>
 <pre class="r"><code>ggplot(dat, aes(x = wins, y = home)) +
   geom_point(aes(color = playoffs)) +
   geom_smooth(method = &quot;lm&quot;) +
@@ -117,7 +117,7 @@ made the playoffs.</p>
   theme_economist() +
   theme(plot.title = element_text(hjust = 0.35)) </code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Next, I…</p>
+<p>Next, I wanted to easily compare the difference in total attendance at home games between teams that made the playoffs and those that did not and between teams that won the Superbowl and those that did not. Therefore, I made 2 boxplots, one that plots total home team attendance against whether each team made the playoffs, and another that plots total home team attendance against whether each team won the Superbowl.</p>
 <pre class="r"><code>p1 &lt;- ggplot(dat, aes(x = playoffs, y = home)) +
   geom_boxplot() +
   labs(x = &quot;Playoff Birth&quot;, y = &quot;Total Attendence at Home Games&quot;) +
@@ -134,45 +134,58 @@ patchwork &lt;- p1 + p2
 patchwork + 
   plot_annotation(title = &quot;Home Game Attendence vs Playoff Births &amp; Superbowl Winners&quot;) </code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>dat %&gt;%
+<p>Lastly, I wanted to see which teams had the highest average home attendance since 2000 and whether the teams with the highest attendance where the most successful. To test this, I made a a bar graph that plots the average home attendance since 2000 for each NFL team, and I ordered the teams on the x-axis by the number of playoff appearances that they had since 2000 to see if there was any trend.</p>
+<pre class="r"><code>dat2 &lt;- dat %&gt;%
   group_by(team_name) %&gt;%
-  summarize(avr_home = mean(home)) %&gt;%
-  ggplot(aes(x = reorder(team_name, -avr_home), y = avr_home)) +
-    geom_col() +
-    labs(x = &quot;Team&quot;, y = &quot;Home Attendences&quot;) +
-    ggtitle(&quot;Average Home Attendence since 2000 by NFL Team&quot;) +
-    theme_economist() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-    theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
+  summarize(avr_home = mean(home))
+
+dat3 &lt;- standings %&gt;%
+  count(playoffs, team_name) %&gt;%
+  filter(playoffs == &quot;Playoffs&quot;) %&gt;%
+  left_join(dat2, by = &quot;team_name&quot;)
+
+ggplot(dat3, aes(x = reorder(team_name, -n), y = avr_home)) +
+  geom_col() +
+  labs(x = &quot;Teams ordered by Number of Playoff Appearances since 2000&quot;, y = &quot;Home Attendences&quot;) +
+  ggtitle(&quot;Average Home Attendence since 2000 by NFL Team&quot;) +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
-There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.</p>
+There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. Lastly, the average home attendance graph shows that there is no correlation between teams with high average attendance and more playoff appearances. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.</p>
 </div>
 <div id="question-2" class="section level1">
 <h1>Question 2</h1>
-<p>When is the optimal time and day for a NFL game to receive the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.</p>
-<pre class="r"><code>games &lt;- games %&gt;%
-  mutate(week = as.numeric(week))</code></pre>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<p>Is there any home field advantage in the NFL? To test this, I</p>
 <pre class="r"><code>games %&gt;%
-  left_join(attendance, by = c(&quot;home_team_city&quot; = &quot;team&quot;, &quot;home_team_name&quot; = &quot;team_name&quot;, &quot;year&quot;, &quot;week&quot;)) %&gt;%
-  filter(day %in% c(&quot;Sun&quot;, &quot;Mon&quot;, &quot;Thu&quot;)) %&gt;%
-  group_by(day, time) %&gt;%
-  summarize(avr_attendance = mean(weekly_attendance, na.rm = TRUE))</code></pre>
-<pre><code>## # A tibble: 209 x 3
-## # Groups:   day [3]
-##    day   time   avr_attendance
-##    &lt;chr&gt; &lt;time&gt;          &lt;dbl&gt;
-##  1 Mon   16:30          71842 
-##  2 Mon   17:07          62839 
-##  3 Mon   19:05          56044 
-##  4 Mon   19:07          75735 
-##  5 Mon   19:10          70130.
-##  6 Mon   19:11          78044.
-##  7 Mon   19:13          66860 
-##  8 Mon   19:20          45910 
-##  9 Mon   19:26          78127 
-## 10 Mon   19:36          68031 
-## # … with 199 more rows</code></pre>
+  mutate(home_win = home_team == winner) %&gt;%
+  group_by(year) %&gt;%
+  summarize(home_win_pct = sum(home_win)/ n()) %&gt;%
+  ggplot(aes(x = year, y = home_win_pct)) +
+    geom_col() +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = &quot;Season&quot;, y = &quot;Home Team Win Percentage&quot;) +
+    ggtitle(&quot;Home Team Win Percentage by Season since 2000&quot;) +
+    theme_economist() +
+    theme(plot.title = element_text(hjust = 0.35))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>dat4 &lt;- games %&gt;%
+  filter(home_team == winner) %&gt;%
+  group_by(year) %&gt;%
+  summarize(avr_home_pts_win = mean(pts_win), avr_away_pts_loss = mean(pts_loss))
+
+dat5 &lt;- games %&gt;%
+  filter(away_team == winner) %&gt;%
+  group_by(year) %&gt;%
+  summarize(avr_home_pts_loss = mean(pts_loss), avr_away_pts_win = mean(pts_win))
+
+dat4 %&gt;%
+  left_join(dat5, by = &quot;year&quot;) %&gt;%
+  summarize(avr_home_pts_win = mean(avr_home_pts_win), avr_away_pts_win = mean(avr_away_pts_win), avr_home_pts_loss = mean(avr_home_pts_loss), avr_away_pts_loss = mean(avr_away_pts_loss))</code></pre>
+<pre><code>## # A tibble: 1 x 4
+##   avr_home_pts_win avr_away_pts_win avr_home_pts_loss avr_away_pts_loss
+##              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+## 1             28.1             27.3              16.5              15.8</code></pre>
 <p>So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.</p>
 </div>
 <div id="question-3" class="section level1">
@@ -198,7 +211,7 @@ f2 &lt;- ggplot(dat, aes(x = points_for, y = home)) +
   theme(plot.title = element_text(hjust = 0.35))
 
 f1 / f2</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>f3 &lt;- ggplot(dat, aes(x = defensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;) +
@@ -216,7 +229,7 @@ f4 &lt;- ggplot(dat, aes(x = points_against, y = home)) +
   theme(plot.title = element_text(hjust = 0.35))
 
 f3 / f4</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>The graphs show that both a good offense and defense attract slightly larger crowds to NFL games.</p>
 </div>
 <div id="conclusions" class="section level1">

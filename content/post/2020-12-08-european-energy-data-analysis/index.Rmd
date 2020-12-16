@@ -39,7 +39,7 @@ dat <- energy_types %>%
   rename(twenty_16.x = '2016.x', twenty_17.x = '2017.x', twenty_18.x = '2018.x') %>%
   filter(type.x %in% c("Hydro", "Pumped hydro power", "Wind", "Solar", "Geothermal", "Other")) %>%
   group_by(country) %>%
-  summarize(renew_2016 = sum(twenty_16.x), renew_2017 = sum(twenty_17.x), renew_2018 = sum(twenty_18.x)) 
+  summarize(renew_2016 = sum(twenty_16.x)/5, renew_2017 = sum(twenty_17.x)/5, renew_2018 = sum(twenty_18.x)/5) 
 
 dat2 <-  energy_types %>%
   filter(type == "Conventional thermal") %>%

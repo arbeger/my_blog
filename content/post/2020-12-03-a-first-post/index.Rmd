@@ -44,7 +44,7 @@ played on different times and dates have different amounts of attendance.
 # Question 1
 
 Do playoff teams have more attendance at their home games than non-playoff teams? If so,
-does the superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
+does the Superbowl winner usually lead the league in attendance? To test this, I first joined the attendance
 dataset and the standings dataset to compare the attendance data and whether or not each team
 made the playoffs.
 
@@ -53,7 +53,7 @@ dat <- attendance %>%
   left_join(standings, by = c("team", "team_name", "year"))
 ```
 
-Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success.
+Next, I made some graphics to better visualize if there was any correlation between higher home field attendance and team success. The first graphic I made plots the total attendance at home games for that season against the number wins that team had and whether or not they made the playoffs. 
 
 ```{r}
 ggplot(dat, aes(x = wins, y = home)) +
@@ -66,7 +66,7 @@ ggplot(dat, aes(x = wins, y = home)) +
   theme(plot.title = element_text(hjust = 0.35)) 
 ```
 
-Next, I...
+Next, I wanted to easily compare the difference in total attendance at home games between teams that made the playoffs and those that did not and between teams that won the Superbowl and those that did not. Therefore, I made 2 boxplots, one that plots total home team attendance against whether each team made the playoffs, and another that plots total home team attendance against whether each team won the Superbowl.
 
 ```{r}
 p1 <- ggplot(dat, aes(x = playoffs, y = home)) +
@@ -86,33 +86,61 @@ patchwork +
   plot_annotation(title = "Home Game Attendence vs Playoff Births & Superbowl Winners") 
 ```
 
+Lastly, I wanted to see which teams had the highest average home attendance since 2000 and whether the teams with the highest attendance where the most successful. To test this, I made a a bar graph that plots the average home attendance since 2000 for each NFL team, and I ordered the teams on the x-axis by the number of playoff appearances that they had since 2000 to see if there was any trend.
+
 ```{r}
-dat %>%
+dat2 <- dat %>%
   group_by(team_name) %>%
-  summarize(avr_home = mean(home)) %>%
-  ggplot(aes(x = reorder(team_name, -avr_home), y = avr_home)) +
-    geom_col() +
-    labs(x = "Team", y = "Home Attendences") +
-    ggtitle("Average Home Attendence since 2000 by NFL Team") +
-    theme_economist() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-    theme(plot.title = element_text(size = 14, hjust = 0.35))
+  summarize(avr_home = mean(home))
+
+dat3 <- standings %>%
+  count(playoffs, team_name) %>%
+  filter(playoffs == "Playoffs") %>%
+  left_join(dat2, by = "team_name")
+
+ggplot(dat3, aes(x = reorder(team_name, -n), y = avr_home)) +
+  geom_col() +
+  labs(x = "Teams ordered by Number of Playoff Appearances since 2000", y = "Home Attendences") +
+  ggtitle("Average Home Attendence since 2000 by NFL Team") +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  theme(plot.title = element_text(size = 14, hjust = 0.35))
 ```
-There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.
+There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. Lastly, the average home attendance graph shows that there is no correlation between teams with high average attendance and more playoff appearances. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.
 
 # Question 2
 
-When is the optimal time and day for a NFL game to receive the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.
+Is there any home field advantage in the NFL? To test this, I 
 
 ```{r}
-games <- games %>%
-  mutate(week = as.numeric(week))
-
 games %>%
-  left_join(attendance, by = c("home_team_city" = "team", "home_team_name" = "team_name", "year", "week")) %>%
-  filter(day %in% c("Sun", "Mon", "Thu")) %>%
-  group_by(day, time) %>%
-  summarize(avr_attendance = mean(weekly_attendance, na.rm = TRUE))
+  mutate(home_win = home_team == winner) %>%
+  group_by(year) %>%
+  summarize(home_win_pct = sum(home_win)/ n()) %>%
+  ggplot(aes(x = year, y = home_win_pct)) +
+    geom_col() +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = "Season", y = "Home Team Win Percentage") +
+    ggtitle("Home Team Win Percentage by Season since 2000") +
+    theme_economist() +
+    theme(plot.title = element_text(hjust = 0.35))
+```
+
+```{r}
+dat4 <- games %>%
+  filter(home_team == winner) %>%
+  group_by(year) %>%
+  summarize(avr_home_pts_win = mean(pts_win), avr_away_pts_loss = mean(pts_loss))
+
+dat5 <- games %>%
+  filter(away_team == winner) %>%
+  group_by(year) %>%
+  summarize(avr_home_pts_loss = mean(pts_loss), avr_away_pts_win = mean(pts_win))
+
+dat4 %>%
+  left_join(dat5, by = "year") %>%
+  summarize(avr_home_pts_win = mean(avr_home_pts_win), avr_away_pts_win = mean(avr_away_pts_win), avr_home_pts_loss = mean(avr_home_pts_loss), avr_away_pts_loss = mean(avr_away_pts_loss))
+
 ```
 
 So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.
@@ -141,7 +169,10 @@ f2 <- ggplot(dat, aes(x = points_for, y = home)) +
   theme(plot.title = element_text(hjust = 0.35))
 
 f1 / f2
+```
 
+
+```{r}
 f3 <- ggplot(dat, aes(x = defensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
