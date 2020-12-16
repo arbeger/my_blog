@@ -37,7 +37,7 @@ Which European country had the largest percentage of their total energy producti
 dat <- energy_types %>%
   left_join(country_totals, by = c("country", "country_name")) %>%
   rename(twenty_16.x = '2016.x', twenty_17.x = '2017.x', twenty_18.x = '2018.x') %>%
-  filter(type.x == c("Hydro", "Pumped hydro power", "Wind", "Solar", "Geothermal", "Other")) %>%
+  filter(type.x %in% c("Hydro", "Pumped hydro power", "Wind", "Solar", "Geothermal", "Other")) %>%
   group_by(country) %>%
   summarize(renew_2016 = sum(twenty_16.x), renew_2017 = sum(twenty_17.x), renew_2018 = sum(twenty_18.x)) 
 
@@ -119,6 +119,7 @@ ggplot(big_shift, aes(x = reorder(country, -shift), y = shift)) +
   theme(plot.title = element_text(size = 14, hjust = 0.35))
 ```
 Bosnia & Herzegovina was the country that saw the biggest shift, but they were followed closely by Lithuania. They were the only 2 countries that had over a 10% shift in production of renewable sources of energy.
+
 # Question 3
 
 Is there a correlation between the European countries with the biggest energy outputs and using more conventional thermal energy? To find this, I again joined the 3 data frames that I already made to summarize the total renewable energy, nuclear energy, and conventional thermal energy that each European Country produced. Next, I arranged the data so that the countries with the highest total energy production were at the top of the data and I made a second dataset that shortened the data down to just the 10 European countries with the highest total energy production in 2018.
@@ -163,4 +164,4 @@ The data suggests that their is some trend between countries with higher total e
 
 # Conclusions:
 
-TBD
+In conclusion, the average European country gets about half of their energy production from clean sources. However, the range stretches from Albania that gets 100% of their energy from clean sources to Malta that gets 0% of their energy from clean sources. Furthermore, overall there has been a trend among European Countries towards Renewable sources of energy from 2016-2018, with some countries, such as Bosnia & Herzegovina and Lithuania, seeing over a 10% shift towards Renewable energy sources in that span. Lastly, among the larger energy producing countries in Europe there was a trend showing higher Conventional Thermal Energy usage in these countries, with a few notable exceptions, such as France, Sweden, and Norway.

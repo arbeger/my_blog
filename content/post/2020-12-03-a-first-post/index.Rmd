@@ -61,9 +61,14 @@ ggplot(dat, aes(x = wins, y = home)) +
   geom_smooth(method = "lm") +
   labs(x = "Wins", y = "Total Attendence at Home Games") +
   ggtitle("Home Game Attendence vs Wins and Playoff Births") +
+  scale_color_manual(values=c("#999999", "#E69F00")) +
   theme_economist() +
-  theme(plot.title = element_text(hjust = 0.35))
+  theme(plot.title = element_text(hjust = 0.35)) 
+```
 
+Next, I...
+
+```{r}
 p1 <- ggplot(dat, aes(x = playoffs, y = home)) +
   geom_boxplot() +
   labs(x = "Playoff Birth", y = "Total Attendence at Home Games") +
@@ -80,11 +85,24 @@ patchwork <- p1 + p2
 patchwork + 
   plot_annotation(title = "Home Game Attendence vs Playoff Births & Superbowl Winners") 
 ```
+
+```{r}
+dat %>%
+  group_by(team_name) %>%
+  summarize(avr_home = mean(home)) %>%
+  ggplot(aes(x = reorder(team_name, -avr_home), y = avr_home)) +
+    geom_col() +
+    labs(x = "Team", y = "Home Attendences") +
+    ggtitle("Average Home Attendence since 2000 by NFL Team") +
+    theme_economist() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    theme(plot.title = element_text(size = 14, hjust = 0.35))
+```
 There is a clear positive correlation between teams that went to the playoffs and higher attendance at home games. However, there were many teams with high attendance that missed the playoffs and teams with low attendance that did make the playoffs. Also, when looking at Superbowl Winners, there is almost no difference in attendance between teams that did win the Superbowl and those who did not. This leads me to believe that the effect that high attendance has on the success of NFL teams is very small.
 
 # Question 2
 
-When is the optimal time and day for a NFL game to recieve the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.
+When is the optimal time and day for a NFL game to receive the highest attendance? To find this, I joined the attendance dataset and the games dataset to compare attendances over different times and dates.
 
 ```{r}
 games <- games %>%
@@ -92,7 +110,7 @@ games <- games %>%
 
 games %>%
   left_join(attendance, by = c("home_team_city" = "team", "home_team_name" = "team_name", "year", "week")) %>%
-  filter(day == c("Sun", "Mon", "Thu")) %>%
+  filter(day %in% c("Sun", "Mon", "Thu")) %>%
   group_by(day, time) %>%
   summarize(avr_attendance = mean(weekly_attendance, na.rm = TRUE))
 ```
