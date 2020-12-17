@@ -110,14 +110,19 @@ There is a clear positive correlation between teams that went to the playoffs an
 
 # Question 2
 
-Is there any home field advantage in the NFL? To test this, I 
+Is there any home field advantage in the NFL? To test this, I used the games dataset and I used mutate to make a new a variable that gets set to TRUE if the home team won each game. I then grouped by season so I could use summarize to show the win percenatge by home team in each NFL season since 2000.
 
 ```{r}
-games %>%
+home <- games %>%
   mutate(home_win = home_team == winner) %>%
   group_by(year) %>%
-  summarize(home_win_pct = sum(home_win)/ n()) %>%
-  ggplot(aes(x = year, y = home_win_pct)) +
+  summarize(home_win_pct = sum(home_win)/ n())
+```
+
+Next, I visualized the data by creating a bar graph that shows the Home Team Win Percentage in the NFL in each season since 2000.
+
+```{r}
+  ggplot(home, aes(x = year, y = home_win_pct)) +
     geom_col() +
     scale_y_continuous(labels = scales::percent) +
     labs(x = "Season", y = "Home Team Win Percentage") +
@@ -126,6 +131,7 @@ games %>%
     theme(plot.title = element_text(hjust = 0.35))
 ```
 
+I also wanted to see if home field advantage resulted in home teams scoring more points. To find this I used the games dataset and summarized it to find the average points scored by winning home and away teams as well as losing home and away teams.
 ```{r}
 dat4 <- games %>%
   filter(home_team == winner) %>%
@@ -140,18 +146,22 @@ dat5 <- games %>%
 dat4 %>%
   left_join(dat5, by = "year") %>%
   summarize(avr_home_pts_win = mean(avr_home_pts_win), avr_away_pts_win = mean(avr_away_pts_win), avr_home_pts_loss = mean(avr_home_pts_loss), avr_away_pts_loss = mean(avr_away_pts_loss))
-
 ```
 
-So far this is as far as I have gotten, bc there are way more times than I thought and I am still trying to figure out a way to deal with it.
+The graph of Home Team win percentage by season shows that in every season since 2000 home teams havw won at least 50% of their games, even reaching a peak of over 60% in the 2003 NFL season. This reveals that there is some amount of home field advantage in the NFL. Furthermore, the table with average points scored reveals that home teams score more in both wins and losses, which furthers the claim that there is home field advantage in the NFL.
 
 # Question 3
 
-Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I will join the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.
+Do teams with a good offense attract more attendence? If not, good defense, or does it not matter? To test this, I joined the attendance dataset and the standings dataset to be able to compare attendance data with offensive and defensive data for each team.
+
 ```{r}
 dat <- attendance %>%
   left_join(standings, by = c("team", "team_name", "year"))
-  
+```
+
+First, I wanted to see if good offenses attracted more home attendance, so I graphed offensive ranking and points scored in a season against total attendance at home games in that season.
+
+```{r}
 f1 <- ggplot(dat, aes(x = offensive_ranking, y = home)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -171,6 +181,7 @@ f2 <- ggplot(dat, aes(x = points_for, y = home)) +
 f1 / f2
 ```
 
+Next, I wanted to see if I would see a similar trend with good defensive teams, so I graphed defensive ranking and points allowed in a season against total attendance at home games in that season.
 
 ```{r}
 f3 <- ggplot(dat, aes(x = defensive_ranking, y = home)) +
@@ -192,7 +203,7 @@ f4 <- ggplot(dat, aes(x = points_against, y = home)) +
 f3 / f4
 ```
 
-The graphs show that both a good offense and defense attract slightly larger crowds to NFL games. 
+The offensive graphs show that teams with good offenses saw slightly more attendance on average than teams with bad offenses. Furthermore, the defensive graphs reveal that teams with good defenses saw slightly more attendance on average. Thus, both teams with good offenses and those with good defenses draw slightly larger crowds to NFL games. 
 
 # Conclusions:
 
