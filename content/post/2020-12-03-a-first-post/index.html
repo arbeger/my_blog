@@ -64,7 +64,7 @@ patchwork &lt;- p1 + p2
 patchwork + 
   plot_annotation(title = &quot;Home Game Attendence vs Playoff Births &amp; Superbowl Winners&quot;) </code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Lastly, I wanted to see which teams had the highest average home attendance since 2000 and whether the teams with the highest attendance where the most successful. To test this, I made a a bar graph that plots the average home attendance since 2000 for each NFL team, and I ordered the teams on the x-axis by the number of playoff appearances that they had since 2000 to see if there was any trend.</p>
+<p>Lastly, I wanted to see which teams had the highest average home attendance since 2000 and whether the teams with the highest attendance where the most successful. To test this, I made a bar graph that plots the average home attendance since 2000 for each NFL team, and I ordered the teams on the x-axis by the number of playoff appearances that they had since 2000 to see if there was any trend.</p>
 <pre class="r"><code>dat2 &lt;- dat %&gt;%
   group_by(team_name) %&gt;%
   summarize(avr_home = mean(home))
@@ -118,7 +118,7 @@ dat4 %&gt;%
 ##   avr_home_pts_win avr_away_pts_win avr_home_pts_loss avr_away_pts_loss
 ##              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
 ## 1             28.1             27.3              16.5              15.8</code></pre>
-<p>The graph of Home Team win percentage by season shows that in every season since 2000 home teams havw won at least 50% of their games, even reaching a peak of over 60% in the 2003 NFL season. This reveals that there is some amount of home field advantage in the NFL. Furthermore, the table with average points scored reveals that home teams score more in both wins and losses, which furthers the claim that there is home field advantage in the NFL.</p>
+<p>The graph of Home Team win percentage by season shows that in every season since 2000 home teams have won at least 50% of their games, even reaching a peak of over 60% in the 2003 NFL season. This reveals that there is some amount of home field advantage in the NFL. Furthermore, the table with average points scored reveals that home teams score more in both wins and losses, which further validates the claim that there is home field advantage in the NFL.</p>
 </div>
 <div id="question-3" class="section level1">
 <h1>Question 3</h1>
@@ -167,5 +167,5 @@ f3 / f4</code></pre>
 </div>
 <div id="conclusions" class="section level1">
 <h1>Conclusions:</h1>
-<p>TBD</p>
+<p>In conclusion, there is a slight correlation between having larger crowd sizes and team success. This is supported by the fact that, on average, teams with higher win totals have larger attendances and that teams with good offenses and defenses have larger crowds. However, the correlation is just slight and there appears to be no correlation between the teams that have made the playoffs the most times since 2000 and large attendences. Furthermore, there does appear to be some amount of home field advantage in the NFL, since home teams win more often and they score more points on average.</p>
 </div>
